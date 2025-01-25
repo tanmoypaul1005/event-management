@@ -1,5 +1,6 @@
 "use client"
 import CommonInput from '@/components/input/CommonInput';
+import { useRegisterUserMutation } from '@/redux/features/auth/authApi';
 import { handleRegisterFormChange } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import React from 'react';
@@ -9,9 +10,14 @@ const Register = () => {
 
     const { registerForm } = useSelector((state) => state.user);
 
-    console.log("d", registerForm)
-
     const dispatch = useDispatch();
+
+    const [registerUser]=useRegisterUserMutation();
+
+    const handleRegisterUser=async()=>{
+       const success= await registerUser(registerForm).unwrap();
+         console.log("success",success)
+    }
 
     return (
         <div className="font-[sans-serif]">
@@ -78,7 +84,7 @@ const Register = () => {
                       
 
                             <div className="!mt-8">
-                                <button type="button" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                <button onClick={handleRegisterUser} type="button" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                                     Sign in
                                 </button>
                             </div>

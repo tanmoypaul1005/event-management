@@ -1,28 +1,30 @@
 
+import { Toastr } from "@/util/utilityFunctions";
 import { apiSlice } from "../api/apiSlice";
 
-export const userApi = apiSlice.injectEndpoints({
+export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // registerUser: builder.mutation({
-    //   query: (data) => ({
-    //     url: kuRegister,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   onQueryStarted: async (arg, { queryFulfilled }) => {
-    //     try {
-    //       const response = await queryFulfilled;
-    //       console.log("Response:", response);
-    //       if (response?.data?.success) {
-    //         Toastr({ message: response?.data?.msg, type: "success" });
-    //       } else {
-    //         Toastr({ message: response?.data?.msg, type: "error" });
-    //       }
-    //     } catch (error) {
-    //       console.error("Error:", error);
-    //     }
-    //   },
-    // }),
+    registerUser: builder.mutation({
+      query: (data) => ({
+        url: "/user",
+        method: "POST",
+        body: data,
+      }),
+      onQueryStarted: async (arg, { queryFulfilled }) => {
+        try {
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+            Toastr({ message: response?.data?.message, type: "success" });
+          } else {
+            Toastr({ message: response?.data?.message, type: "error" });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          Toastr({ message: "An error occurred!", type: "success" });
+        }
+      },
+    }),
     // login: builder.mutation({
     //   query: (data) => ({
     //     url: kuLogin,
@@ -120,5 +122,7 @@ export const userApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {  } =
+export const { 
+  useRegisterUserMutation,
+ } =
   authApi;
