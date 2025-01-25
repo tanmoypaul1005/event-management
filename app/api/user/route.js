@@ -1,5 +1,6 @@
 import User from "@/models/User";
 import connectMongo from "@/util/db";
+import bcrypt from 'bcryptjs';
 
 export async function POST(request, response) {
     try {
@@ -24,8 +25,8 @@ export async function POST(request, response) {
             status: 500,
           });
       }
-  
-      const user = new User(res);
+      const hashedPassword = await bcrypt.hash(res.password, 10);
+      const user = new User({ ...res, password: hashedPassword });
       await user.save();
       return Response.json({
         success: true,
@@ -41,4 +42,4 @@ export async function POST(request, response) {
         status: 500,
       });
     }
-  }
+}
