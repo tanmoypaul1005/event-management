@@ -25,37 +25,35 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    // login: builder.mutation({
-    //   query: (data) => ({
-    //     url: kuLogin,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   onQueryStarted: async (arg, { queryFulfilled }) => {
-    //     try {
-    //       const response = await queryFulfilled;
-    //       console.log("Response:", response);
-    //       if (response?.data?.success) {
-    //         Toastr({ message: response?.data?.msg, type: "success" });
-    //         const accessToken = response?.data?.data?.accessToken;
-    //         const refreshToken = response?.data?.data?.refreshToken;
-    //         // Store user information and tokens in local storage
-    //         localStorage.setItem("user", JSON.stringify(response?.data));
-    //         // Set access token in cookies
-    //         document.cookie = `accessToken=${accessToken}; path=/; max-age=${
-    //           60 * 60 * 24 * 7
-    //         }; secure; samesite=strict`;
-    //         document.cookie = `refreshToken=${refreshToken}; path=/; max-age=${
-    //           60 * 60 * 24 * 7
-    //         }; secure; samesite=strict`;
-    //       } else {
-    //         Toastr({ message: response?.data?.msg, type: "error" });
-    //       }
-    //     } catch (error) {
-    //       console.error("Error:", error);
-    //     }
-    //   },
-    // }),
+    login: builder.mutation({
+      query: (data) => ({
+        url: "/login",
+        method: "POST",
+        body: data,
+      }),
+      onQueryStarted: async (arg, { queryFulfilled }) => {
+        try {
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+            Toastr({ message: response?.data?.message, type: "success" });
+            const accessToken = response?.data?.token;
+       
+            // Store user information and tokens in local storage
+            localStorage.setItem("user", JSON.stringify(response?.data?.user));
+            // Set access token in cookies
+            document.cookie = `accessToken=${accessToken}; path=/; max-age=${
+              60 * 60 * 24 * 7
+            }; secure; samesite=strict`;
+        
+          } else {
+            Toastr({ message: response?.data?.message, type: "error" });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      },
+    }),
 
     // logout: builder.mutation({
     //   query: (data) => ({
@@ -124,5 +122,6 @@ export const authApi = apiSlice.injectEndpoints({
 
 export const { 
   useRegisterUserMutation,
+  useLoginMutation
  } =
   authApi;

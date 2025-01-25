@@ -32,6 +32,7 @@ export async function POST(request, response) {
       success: true,
       message: "Login successful",
       status: 200,
+      user: user,
       token,
     });
   } catch (err) {
