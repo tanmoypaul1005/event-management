@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = "mongodb+srv://gadget-storebd:WJqb12kP4tHYGEB2@cluster0.nswkl.mongodb.net/event management?retryWrites=true&w=majority"
+const MONGO_URI = "mongodb+srv://gadget-storebd:WJqb12kP4tHYGEB2@cluster0.nswkl.mongodb.net/event-management?retryWrites=true&w=majority"
 
 const cached = {};
 async function connectMongo() {
