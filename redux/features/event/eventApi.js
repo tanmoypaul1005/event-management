@@ -24,6 +24,7 @@ export const eventApi = apiSlice.injectEndpoints({
           Toastr({ message: "An error occurred!", type: "success" });
         }
       },
+      invalidatesTags: ["event"],
     }),
 
     getEvent: builder.query({
@@ -45,7 +46,8 @@ export const eventApi = apiSlice.injectEndpoints({
             Toastr({ message: "An error occurred!", type: "error" });
           }
         },
-      }),
+        providesTags: ["event"],
+    }),
   }),
 });
 

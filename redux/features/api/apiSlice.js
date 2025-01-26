@@ -27,7 +27,7 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ['Store', "media", "updateStock", "coupon"], // Add the tagTypes here
+    tagTypes: ['event'], // Add the tagTypes here
     endpoints: () => ({
 
     }),

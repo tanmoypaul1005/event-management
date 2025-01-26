@@ -24,11 +24,15 @@ const eventSlice = createSlice({
             const { field, value } = action.payload;
             state.eventForm[field] = value;
         },
+        resetEventForm: (state) => {
+            state.eventForm = initialUserState;
+        }
     }
 });
 
 export const {
-    handleEventFormFormChange
+    handleEventFormFormChange,
+    resetEventForm
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

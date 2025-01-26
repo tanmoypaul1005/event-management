@@ -3,7 +3,8 @@ import CommonButton from '@/components/button/CommonButton';
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
 import Search from '@/components/search/Search';
-import { useRouter } from 'next/navigation';
+import { useAddEventMutation } from '@/redux/features/event/eventApi';
+import { handleEventFormFormChange, resetEventForm } from '@/redux/features/event/eventSlice';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,14 +14,23 @@ const AddEventModal = () => {
 
     const { eventForm } = useSelector((state) => state.event);
 
-    const router = useRouter();
+    const [addEvent]=useAddEventMutation();
 
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        dispatch(handleEventFormChange({ name, value }));
+        dispatch(handleEventFormFormChange({ field: name, value }));
     };
+
+    const handleSubmit=async(e)=>{
+        e.preventDefault();
+        const success=await addEvent(eventForm).unwrap();
+        if(success?.success){
+            dispatch(resetEventForm())
+            setOpen(false);
+        }
+    }
 
     return (
         <div>
@@ -29,7 +39,7 @@ const AddEventModal = () => {
                 <CommonButton title="Add Event" onClick={() => { setOpen(true) }} />
             </div>
             <CommonModal isOpen={open} onClose={() => { setOpen(false) }} title="Add Event">
-                <div className='flex flex-col gap-4'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                     <CommonInput
                         value={eventForm?.title}
                         onChange={handleChange}
@@ -65,7 +75,14 @@ const AddEventModal = () => {
                         label="Location"
                         placeholder="Enter location"
                     />
-                </div>
+
+                    <div className="border-t border-gray-300 pt-6 flex justify-end gap-4">
+                        <button type="button"
+                            className="px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Close</button>
+                        <button type="submit"
+                            className="px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Save</button>
+                    </div>
+                </form>
             </CommonModal>
         </div>
     );
