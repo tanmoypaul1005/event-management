@@ -4,10 +4,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Define the initial user state
 const initialUserState = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    title: "",
+    description: "",
+    start_time: "",
+    end_time: "",
+    location:""
 };
 
 // Initial state
@@ -15,7 +16,7 @@ const initialState = {
     eventForm: initialUserState,
 };
 
-const registerSlice = createSlice({
+const eventSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -28,6 +29,6 @@ const registerSlice = createSlice({
 
 export const {
     handleEventFormFormChange
-} = registerSlice.actions;
+} = eventSlice.actions;
 
 export default eventSlice.reducer;
