@@ -2,10 +2,24 @@
 
 import React, { useState } from 'react';
 import CommonModal from './CommonModal';
+import { useRouter } from 'next/navigation';
 
 const LogoutModal = () => {
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const router=useRouter();
+
+    const handleLogout=()=>{
+        localStorage.clear(); 
+        setOpen(false);
+          // Clear cookies
+    document.cookie.split(";").forEach((cookie) => {
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      });
+        router.push("/login")
+    }
 
     return (
         <div>
@@ -28,8 +42,7 @@ const LogoutModal = () => {
                         </button>
                         <button
                             onClick={() => {
-                                // Add your logout logic here
-                                setOpen(false);
+                                handleLogout()
                             }}
                             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-all ease-in-out duration-300">
                             Logout
