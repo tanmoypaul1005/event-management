@@ -2,14 +2,20 @@
 import React, { useEffect } from 'react';
 import AddEventModal from './modal/AddEventModal';
 import { useLazyGetEventQuery } from '@/redux/features/event/eventApi';
+import { useSelector } from 'react-redux';
+import { useDebounce } from 'use-debounce';
 
 const EventList = () => {
+
+    const { eventSearch } = useSelector((state) => state.event);
+
+    const [searchValue] = useDebounce(eventSearch, 1000);
 
     const [getEvent,{data:event}]=useLazyGetEventQuery();
 
     useEffect(() => {
-        getEvent();
-    }, [])
+        getEvent(eventSearch);
+    }, [searchValue])
 
     console.log("event",event);
 

@@ -18,7 +18,7 @@ export async function POST(request) {
             });
         }
         // Verify and decode the token
-        
+
         const decoded = await jwt.verify(token, "pp");
 
         const userId = decoded.id;
@@ -57,13 +57,25 @@ export async function GET(request) {
             });
         }
         // Verify and decode the token
-        
-        const decoded = await jwt.verify(token, "pp");
 
+        const decoded = await jwt.verify(token, "pp");
         const userId = decoded.id;
 
-        const event = await Event.find({ user: userId });
-        
+        // Get query parameters for search
+        const url = new URL(request.url);
+        const searchQuery = url.searchParams.get('q') || '';
+
+
+        // Find events based on user ID and search query
+        const event = await Event.find({
+            user: userId,
+            $or: [
+                { title: { $regex: searchQuery, $options: 'i' } },
+                { description: { $regex: searchQuery, $options: 'i' } },
+                { location: { $regex: searchQuery, $options: 'i' } }
+            ]
+        });
+
         return Response.json({
             success: true,
             status: 200,

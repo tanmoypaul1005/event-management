@@ -1,6 +1,7 @@
 
 import { Toastr } from "@/util/utilityFunctions";
 import { apiSlice } from "../api/apiSlice";
+import { setSearchLoading } from "./eventSlice";
 
 export const eventApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,20 +29,23 @@ export const eventApi = apiSlice.injectEndpoints({
     }),
 
     getEvent: builder.query({
-        query: () => ({
-          url:"event",
+        query: (search) => ({
+          url:`event?q=${search}`,
           method: "GET",
         }),
-        onQueryStarted: async (arg, { queryFulfilled }) => {
+        onQueryStarted: async (arg, { queryFulfilled,dispatch }) => {
           try {
+            dispatch(setSearchLoading(true))
             const response = await queryFulfilled;
             console.log("Response:", response);
             if (response?.data?.success) {
-              //  done
+                dispatch(setSearchLoading(false))
             } else {
+                dispatch(setSearchLoading(false))
               Toastr({ message: response?.data?.msg, type: "error" });
             }
           } catch (error) {
+            dispatch(setSearchLoading(false))
             console.error("Error:", error);
             Toastr({ message: "An error occurred!", type: "error" });
           }

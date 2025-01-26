@@ -14,12 +14,20 @@ const initialUserState = {
 // Initial state
 const initialState = {
     eventForm: initialUserState,
+    eventSearch:"",
+    searchLoading:false
 };
 
 const eventSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        setEventSearch: (state, action) => {
+            state.eventSearch = action.payload;
+        },
+        setSearchLoading: (state, action) => {
+            state.searchLoading = action.payload;
+        },
         handleEventFormFormChange: (state, action) => {
             const { field, value } = action.payload;
             state.eventForm[field] = value;
@@ -32,7 +40,9 @@ const eventSlice = createSlice({
 
 export const {
     handleEventFormFormChange,
-    resetEventForm
+    resetEventForm,
+    setEventSearch,
+    setSearchLoading
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
