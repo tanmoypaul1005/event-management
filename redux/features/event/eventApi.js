@@ -25,10 +25,32 @@ export const eventApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    getEvent: builder.query({
+        query: () => ({
+          url:"event",
+          method: "GET",
+        }),
+        onQueryStarted: async (arg, { queryFulfilled }) => {
+          try {
+            const response = await queryFulfilled;
+            console.log("Response:", response);
+            if (response?.data?.success) {
+              //  done
+            } else {
+              Toastr({ message: response?.data?.msg, type: "error" });
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            Toastr({ message: "An error occurred!", type: "error" });
+          }
+        },
+      }),
   }),
 });
 
 export const { 
   useAddEventMutation,
+  useLazyGetEventQuery
  } =
   eventApi;
