@@ -35,7 +35,7 @@ const registerSlice = createSlice({
         },
         handleLoginFormChange: (state, action) => {
             const { field, value } = action.payload;
-            state.registerForm[field] = value;
+            state.loginForm[field] = value;
         },
     }
 });

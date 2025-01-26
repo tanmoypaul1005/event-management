@@ -2,6 +2,8 @@
 import CommonInput from '@/components/input/CommonInput';
 import { useLoginMutation } from '@/redux/features/auth/authApi';
 import { handleLoginFormChange } from '@/redux/features/auth/authSlice';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,11 +13,16 @@ function Login() {
 
   const [login]= useLoginMutation();
 
+  const router=useRouter();
+
   const dispatch = useDispatch();
 
   const handleLogin=async(e)=>{
     e.preventDefault();
     const success= await login(loginForm).unwrap();
+    if(success?.success){
+      router.push('/');
+    }
     console.log("success",success)
   }
 
@@ -53,7 +60,7 @@ function Login() {
               />
 
 
-              <div className="flex flex-wrap items-center justify-between gap-4">
+              {/* <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center">
                   <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
                   <label for="remember-me" className="ml-3 block text-sm text-gray-800">
@@ -66,7 +73,7 @@ function Login() {
                     Forgot your password?
                   </a>
                 </div>
-              </div>
+              </div> */}
 
               <div className="!mt-8">
                 <button type="submit" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
@@ -74,7 +81,7 @@ function Login() {
                 </button>
               </div>
 
-              <p className="text-sm !mt-8 text-center text-gray-500">Don't have an account <a href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
+              <p className="text-sm !mt-8 text-center text-gray-500">Don't have an account <Link href="/register" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</Link></p>
             </form>
           </div>
           <div className="max-md:mt-8">

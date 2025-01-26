@@ -3,6 +3,7 @@ import CommonInput from '@/components/input/CommonInput';
 import { useRegisterUserMutation } from '@/redux/features/auth/authApi';
 import { handleRegisterFormChange } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,11 +13,16 @@ const Register = () => {
 
     const dispatch = useDispatch();
 
-    const [registerUser]=useRegisterUserMutation();
+    const router = useRouter();
 
-    const handleRegisterUser=async()=>{
-       const success= await registerUser(registerForm).unwrap();
-         console.log("success",success)
+    const [registerUser] = useRegisterUserMutation();
+
+    const handleRegisterUser = async () => {
+        const success = await registerUser(registerForm).unwrap();
+        if (success?.success) {
+            router.push('/login');
+        }
+        console.log("success", success)
     }
 
     return (
@@ -81,7 +87,7 @@ const Register = () => {
                                 }
                             />
 
-                      
+
 
                             <div className="!mt-8">
                                 <button onClick={handleRegisterUser} type="button" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
