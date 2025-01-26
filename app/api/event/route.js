@@ -21,17 +21,15 @@ export async function POST(request, response) {
         
         const decoded = await jwt.verify(token, "pp");
 
-
         const userId = decoded.id;
 
-
-        // const user = new Event({ ...res, password: hashedPassword });
-        // await user.save();
+        const event = new Event({ ...res, user: userId });
+        await event.save();
         return Response.json({
             success: true,
-            message: "User Created Successfully",
+            message: "Event Created Successfully",
             status: 201,
-            data: userId,
+            data: event,
         });
     } catch (err) {
         console.error(err);
