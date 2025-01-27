@@ -1,8 +1,10 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/redux/provider";
 import { Slide, ToastContainer } from "react-toastify";
 import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,10 +41,11 @@ export default function RootLayout({ children }) {
           theme="dark"
           limit={2}
         />
+        <Header />
         <ReduxProvider>
           {children}
         </ReduxProvider>
-<Footer/>
+        <Footer />
       </body>
     </html>
   );

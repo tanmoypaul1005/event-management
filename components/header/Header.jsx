@@ -26,7 +26,7 @@ const Header = () => {
                             </svg>
                         </button>
 
-                        <ul
+                        {/* <ul
                             className='lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
                             <li className='mb-6 hidden max-lg:block'>
                                 <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
@@ -51,7 +51,7 @@ const Header = () => {
                             <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'><a href='javascript:void(0)'
                                 className='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
 
                     <div className='flex justify-center items-center max-lg:ml-auto space-x-4'>
