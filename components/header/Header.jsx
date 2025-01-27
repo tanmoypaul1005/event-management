@@ -4,7 +4,7 @@ import LogoutModal from '../modal/LogoutModal';
 
 const Header = () => {
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = typeof window === 'undefined' ? "" : JSON.parse(localStorage.getItem("user"));
     console.log("absolute right-6", user)
     return (
         <div>
@@ -62,8 +62,8 @@ const Header = () => {
                                     className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{user?.name ?? "oo"}</a>
                             </div>
                         </div>
-                        
-<LogoutModal/>
+
+                        <LogoutModal />
 
                         <button id="toggleOpen" className='lg:hidden'>
                             <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
