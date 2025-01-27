@@ -2,9 +2,19 @@ import User from "@/models/User";
 import connectMongo from "@/util/db";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import Cors from 'cors';
+import { NextResponse } from 'next/server';
+
 
 export async function POST(request, response) {
   try {
+     // Run the middleware
+       // Set CORS headers
+       const response = NextResponse.next();
+       response.headers.set('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your frontend's origin
+       response.headers.set('Access-Control-Allow-Methods', 'POST, GET, HEAD');
+       response.headers.set('Access-Control-Allow-Credentials', 'true');
+
     const res = await request.json();
     await connectMongo();
 
