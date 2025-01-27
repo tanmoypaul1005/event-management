@@ -26,7 +26,7 @@ export async function POST(request, response) {
       });
     }
 
-    const token = jwt.sign({ id: user._id }, "pp", { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, "pp", { expiresIn: '5d' });
 
     return Response.json({
       success: true,

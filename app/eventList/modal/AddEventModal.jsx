@@ -1,18 +1,17 @@
 "use client"
-import CommonButton from '@/components/button/CommonButton';
+
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
-import Search from '@/components/search/Search';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
-import { handleEventFormFormChange, resetEventForm } from '@/redux/features/event/eventSlice';
+import { handleEventFormFormChange, resetEventForm, setShowAddEventModal } from '@/redux/features/event/eventSlice';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddEventModal = () => {
 
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
 
-    const { eventForm } = useSelector((state) => state.event);
+    const { eventForm ,showAddEventModal} = useSelector((state) => state.event);
 
     const [addEvent]=useAddEventMutation();
 
@@ -28,17 +27,14 @@ const AddEventModal = () => {
         const success=await addEvent(eventForm).unwrap();
         if(success?.success){
             dispatch(resetEventForm())
-            setOpen(false);
+            dispatch(setShowAddEventModal(false));
         }
     }
 
     return (
         <div>
-            <div className='flex w-full justify-between mb-5'>
-                <Search />
-                <CommonButton title="Add Event" onClick={() => { setOpen(true) }} />
-            </div>
-            <CommonModal isOpen={open} onClose={() => { setOpen(false) }} title="Add Event">
+           
+            <CommonModal isOpen={showAddEventModal} onClose={() => { dispatch(setShowAddEventModal(false)) }} title="Add Event">
                 <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                     <CommonInput
                         value={eventForm?.title}

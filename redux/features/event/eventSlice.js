@@ -15,7 +15,8 @@ const initialUserState = {
 const initialState = {
     eventForm: initialUserState,
     eventSearch:"",
-    searchLoading:false
+    searchLoading:false,
+    showAddEventModal:false
 };
 
 const eventSlice = createSlice({
@@ -24,6 +25,9 @@ const eventSlice = createSlice({
     reducers: {
         setEventSearch: (state, action) => {
             state.eventSearch = action.payload;
+        },
+        setShowAddEventModal: (state, action) => {
+            state.showAddEventModal = action.payload;
         },
         setSearchLoading: (state, action) => {
             state.searchLoading = action.payload;
@@ -42,7 +46,8 @@ export const {
     handleEventFormFormChange,
     resetEventForm,
     setEventSearch,
-    setSearchLoading
+    setSearchLoading,
+    setShowAddEventModal
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
