@@ -2,7 +2,6 @@ import User from "@/models/User";
 import connectMongo from "@/util/db";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import Cors from 'cors';
 import { NextResponse } from 'next/server';
 
 
