@@ -14,6 +14,7 @@ const initialUserState = {
 // Initial state
 const initialState = {
     eventForm: initialUserState,
+    eventFormEdit: initialUserState,
     eventSearch:"",
     searchLoading:false,
     showAddEventModal:false
@@ -38,7 +39,16 @@ const eventSlice = createSlice({
         },
         resetEventForm: (state) => {
             state.eventForm = initialUserState;
-        }
+        },
+
+
+        setEventFullFormEdit: (state, action) => {
+            state.eventFormEdit = action.payload;
+        },
+        handleEditEventFormFormChange: (state, action) => {
+            const { field, value } = action.payload;
+            state.eventFormEdit[field] = value;
+        },
     }
 });
 
@@ -47,7 +57,9 @@ export const {
     resetEventForm,
     setEventSearch,
     setSearchLoading,
-    setShowAddEventModal
+    setShowAddEventModal,
+    setEventFullFormEdit,
+    handleEditEventFormFormChange
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

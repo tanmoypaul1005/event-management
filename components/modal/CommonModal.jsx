@@ -26,7 +26,7 @@ const CommonModal = ({title="", isOpen, onClose, children }) => {
                                 </div>
                     </div>
 
-                    <div className="my-3">
+                    <div className="my-t">
                         {children}
                     </div>
                 </div>

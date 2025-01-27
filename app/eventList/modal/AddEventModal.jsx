@@ -4,7 +4,7 @@ import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
 import { handleEventFormFormChange, resetEventForm, setShowAddEventModal } from '@/redux/features/event/eventSlice';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddEventModal = () => {
@@ -35,7 +35,7 @@ const AddEventModal = () => {
         <div>
            
             <CommonModal isOpen={showAddEventModal} onClose={() => { dispatch(setShowAddEventModal(false)) }} title="Add Event">
-                <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
                     <CommonInput
                         value={eventForm?.title}
                         onChange={handleChange}
@@ -72,7 +72,7 @@ const AddEventModal = () => {
                         placeholder="Enter location"
                     />
 
-                    <div className="border-t border-gray-300 pt-6 flex justify-end gap-4">
+                    <div className="border-t border-gray-300 pt-3 flex justify-end gap-x-4">
                         <button type="button"
                             className="px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Close</button>
                         <button type="submit"
