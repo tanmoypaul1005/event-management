@@ -1,10 +1,10 @@
 "use client"
 import CommonInput from '@/components/input/CommonInput';
 import { useRegisterUserMutation } from '@/redux/features/auth/authApi';
-import { handleRegisterFormChange } from '@/redux/features/auth/authSlice';
+import { handleRegisterFormChange, resetRegisterForm } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Register = () => {
@@ -15,12 +15,18 @@ const Register = () => {
 
     const router = useRouter();
 
+    useEffect(() => {
+        dispatch(resetRegisterForm())
+    }, [])
+
     const [registerUser] = useRegisterUserMutation();
 
     const handleRegisterUser = async () => {
         const success = await registerUser(registerForm).unwrap();
         if (success?.success) {
             router.push('/login');
+        }else{
+            Toastr({ message: response?.message, type: "error" });
         }
         console.log("success", success)
     }

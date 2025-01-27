@@ -1,11 +1,12 @@
 "use client"
+import { base_url_client } from "@/util/const";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://event-management-ten-teal.vercel.app/api",
+        baseUrl:base_url_client,
         prepareHeaders: (headers) => {
             // headers.set("Content-Type", "application/json");
             if (typeof window !== 'undefined') {

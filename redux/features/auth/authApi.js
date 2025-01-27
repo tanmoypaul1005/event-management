@@ -13,11 +13,11 @@ export const authApi = apiSlice.injectEndpoints({
       onQueryStarted: async ({ queryFulfilled }) => {
         try {
           const response = await queryFulfilled;
-          console.log("Response:", response);
+          console.log("Responsesss:", response);
           if (response?.data?.success) {
             Toastr({ message: response?.data?.message, type: "success" });
           } else {
-            Toastr({ message: response?.data?.message, type: "error" });
+            // Toastr({ message: response?.data?.message, type: "error" });
           }
         } catch (error) {
           console.error("Error:", error);
