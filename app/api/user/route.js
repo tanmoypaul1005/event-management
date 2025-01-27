@@ -1,6 +1,7 @@
 import User from "@/models/User";
 import connectMongo from "@/util/db";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export async function POST(request, response) {
     try {
@@ -42,4 +43,42 @@ export async function POST(request, response) {
         status: 500,
       });
     }
+}
+
+
+export async function GET(request) {
+  try {
+      await connectMongo();
+
+      // Get a specific header
+      const authHeader = request.headers.get('Authorization');
+      const token = authHeader.replace('Bearer ', '');
+      if (!token) {
+          return Response.json({
+              success: false,
+              message: "No token provided",
+              status: 401,
+          });
+      }
+      // Verify and decode the token
+
+      const decoded = await jwt.verify(token, "pp");
+      const userId = decoded.id;
+
+      // Find events based on user ID and search query
+      const event = await User.findOne({_id:userId});
+
+      return Response.json({
+          success: true,
+          status: 200,
+          data: event,
+      });
+  } catch (err) {
+      console.error(err);
+      return Response.json({
+          success: false,
+          message: err.message,
+          status: 500,
+      });
+  }
 }
