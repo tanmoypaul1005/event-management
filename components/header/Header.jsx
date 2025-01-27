@@ -1,18 +1,19 @@
 "use client"
 import React from 'react';
 import LogoutModal from '../modal/LogoutModal';
+import Link from 'next/link';
+import { iUserAvatar } from '@/util/imageImports';
+import Image from 'next/image';
 
 const Header = () => {
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log("absolute right-6", user)
+    const user = typeof window === 'undefined' ? "" : JSON.parse(localStorage.getItem("user"));
+
     return (
         <div>
-            <header className='flex shadow-md py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
+            <header className='flex shadow-md py-2 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[5    0px] tracking-wide relative z-50'>
                 <div className='flex flex-wrap items-center justify-between gap-5 w-full'>
-                    <a href="javascript:void(0)" className="max-sm:hidden"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' /></a>
-                    <a href="javascript:void(0)" className="hidden max-sm:block"><img src="https://readymadeui.com/readymadeui-short.svg" alt="logo" className='w-9' /></a>
-
+                    <Link href={"/"} className='text-[20px] font-bold'>Event Management</Link>
                     <div id="collapseMenu"
                         className='max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
                         <button id="toggleClose" className='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white w-9 h-9 flex items-center justify-center border'>
@@ -26,7 +27,7 @@ const Header = () => {
                             </svg>
                         </button>
 
-                        <ul
+                        {/* <ul
                             className='lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
                             <li className='mb-6 hidden max-lg:block'>
                                 <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
@@ -51,19 +52,19 @@ const Header = () => {
                             <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'><a href='javascript:void(0)'
                                 className='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
 
                     <div className='flex justify-center items-center max-lg:ml-auto space-x-4'>
                         <div>
 
-                            <div className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                                <a href='javascript:void(0)'
-                                    className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{user?.name ?? "oo"}</a>
-                            </div>
+                            <Link href={"/profile"} className='max-lg:border-b flex gap-x-2 border-gray-300 max-lg:py-3 px-3'>
+                            <Image src={iUserAvatar} alt="" />
+                                <div className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{user?.name ?? "oo"}</div>
+                            </Link>
                         </div>
-                        
-<LogoutModal/>
+
+                        <LogoutModal />
 
                         <button id="toggleOpen" className='lg:hidden'>
                             <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

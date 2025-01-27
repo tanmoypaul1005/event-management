@@ -2,9 +2,8 @@ import Event from "@/models/Event";
 import connectMongo from "@/util/db";
 import jwt from 'jsonwebtoken';
 
-export async function POST(request) {
+export async function DELETE(request) {
     try {
-        const res = await request.json();
         await connectMongo();
 
         // Get a specific header
@@ -20,16 +19,29 @@ export async function POST(request) {
         // Verify and decode the token
 
         const decoded = await jwt.verify(token, "pp");
-
         const userId = decoded.id;
 
-        const event = new Event({ ...res, user: userId });
-        await event.save();
+        // Extract the _id from the URL path
+        const url = new URL(request.url);
+        const pathSegments = url.pathname.split('/');
+        const id = pathSegments[pathSegments.length - 1];
+
+        if (!id) {
+            return new Response(JSON.stringify({
+                success: false,
+                message: "Event ID is required",
+                status: 400,
+            }), { status: 400 });
+        }
+
+        // Find events based on user ID and search query
+        const event = await Event.findByIdAndDelete({ _id: id, user: userId });
+
         return Response.json({
             success: true,
-            message: "Event Created Successfully",
-            status: 201,
+            status: 200,
             data: event,
+            message:"Event delete Successfully"
         });
     } catch (err) {
         console.error(err);
@@ -41,11 +53,10 @@ export async function POST(request) {
     }
 }
 
-
-export async function GET(request) {
+export async function PUT(request) {
     try {
         await connectMongo();
-
+        const res = await request.json();
         // Get a specific header
         const authHeader = request.headers.get('Authorization');
         const token = authHeader.replace('Bearer ', '');
@@ -61,25 +72,31 @@ export async function GET(request) {
         const decoded = await jwt.verify(token, "pp");
         const userId = decoded.id;
 
-        // Get query parameters for search
+        // Extract the _id from the URL path
         const url = new URL(request.url);
-        const searchQuery = url.searchParams.get('q') || '';
+        const pathSegments = url.pathname.split('/');
+        const id = pathSegments[pathSegments.length - 1];
 
+        if (!id) {
+            return new Response(JSON.stringify({
+                success: false,
+                message: "Event ID is required",
+                status: 400,
+            }), { status: 400 });
+        }
 
         // Find events based on user ID and search query
-        const event = await Event.find({
-            user: userId,
-            $or: [
-                { title: { $regex: searchQuery, $options: 'i' } },
-                { description: { $regex: searchQuery, $options: 'i' } },
-                { location: { $regex: searchQuery, $options: 'i' } }
-            ]
-        });
+        const event = await Event.findOneAndUpdate(
+            { _id: id, user: userId },
+            res,
+            { new: true }
+          );
 
         return Response.json({
             success: true,
             status: 200,
             data: event,
+            message:"Event delete Successfully"
         });
     } catch (err) {
         console.error(err);

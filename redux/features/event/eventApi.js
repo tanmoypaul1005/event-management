@@ -22,7 +22,7 @@ export const eventApi = apiSlice.injectEndpoints({
           }
         } catch (error) {
           console.error("Error:", error);
-          Toastr({ message: "An error occurred!", type: "success" });
+          Toastr({ message: "An error occurred!", type: "error" });
         }
       },
       invalidatesTags: ["event"],
@@ -52,11 +52,58 @@ export const eventApi = apiSlice.injectEndpoints({
         },
         providesTags: ["event"],
     }),
+
+    deleteEvent: builder.mutation({
+      query: (id) => ({
+        url: `/event/${id}`,
+        method: "DELETE",
+      }),
+      onQueryStarted: async (arg, { queryFulfilled }) => {
+        try {
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+            Toastr({ message: response?.data?.message, type: "success" });
+          } else {
+            Toastr({ message: response?.data?.message, type: "error" });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          Toastr({ message: "An error occurred!", type: "error" });
+        }
+      },
+      invalidatesTags: ["event"],
+    }),
+
+    editEvent: builder.mutation({
+      query: ({id,data}) => ({
+        url: `/event/${id}`,
+        method: "PUT",
+        body:data
+      }),
+      onQueryStarted: async (arg, { queryFulfilled }) => {
+        try {
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+            Toastr({ message: response?.data?.message, type: "success" });
+          } else {
+            Toastr({ message: response?.data?.message, type: "error" });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          Toastr({ message: "An error occurred!", type: "error" });
+        }
+      },
+      invalidatesTags: ["event"],
+    }),
   }),
 });
 
 export const { 
   useAddEventMutation,
-  useLazyGetEventQuery
+  useLazyGetEventQuery,
+  useDeleteEventMutation,
+  useEditEventMutation
  } =
   eventApi;

@@ -25,6 +25,7 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
     login: builder.mutation({
       query: (data) => ({
         url: "/login",
@@ -38,14 +39,13 @@ export const authApi = apiSlice.injectEndpoints({
           if (response?.data?.success) {
             Toastr({ message: response?.data?.message, type: "success" });
             const accessToken = response?.data?.token;
-       
+
             // Store user information and tokens in local storage
             localStorage.setItem("user", JSON.stringify(response?.data?.user));
             // Set access token in cookies
-            document.cookie = `accessToken=${accessToken}; path=/; max-age=${
-              60 * 60 * 24 * 7
-            }; secure; samesite=strict`;
-        
+            document.cookie = `accessToken=${accessToken}; path=/; max-age=${60 * 60 * 24 * 7
+              }; secure; samesite=strict`;
+
           } else {
             Toastr({ message: response?.data?.message, type: "error" });
           }
@@ -53,6 +53,31 @@ export const authApi = apiSlice.injectEndpoints({
           console.error("Error:", error);
         }
       },
+    }),
+
+    getUserDetails: builder.query({
+      query: (search) => ({
+        url: `/user`,
+        method: "GET",
+      }),
+      onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
+        try {
+          dispatch(setSearchLoading(true))
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+            // dispatch(setSearchLoading(false))
+          } else {
+            // dispatch(setSearchLoading(false))
+            Toastr({ message: response?.data?.msg, type: "error" });
+          }
+        } catch (error) {
+          dispatch(setSearchLoading(false))
+          console.error("Error:", error);
+          Toastr({ message: "An error occurred!", type: "error" });
+        }
+      },
+      providesTags: ["event"],
     }),
 
     // logout: builder.mutation({
@@ -120,8 +145,9 @@ export const authApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { 
+export const {
   useRegisterUserMutation,
-  useLoginMutation
- } =
+  useLoginMutation,
+  useLazyGetUserDetailsQuery
+} =
   authApi;

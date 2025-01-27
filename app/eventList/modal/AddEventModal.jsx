@@ -1,18 +1,17 @@
 "use client"
-import CommonButton from '@/components/button/CommonButton';
+
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
-import Search from '@/components/search/Search';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
-import { handleEventFormFormChange, resetEventForm } from '@/redux/features/event/eventSlice';
-import React, { useState } from 'react';
+import { handleEventFormFormChange, resetEventForm, setShowAddEventModal } from '@/redux/features/event/eventSlice';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddEventModal = () => {
 
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
 
-    const { eventForm } = useSelector((state) => state.event);
+    const { eventForm ,showAddEventModal} = useSelector((state) => state.event);
 
     const [addEvent]=useAddEventMutation();
 
@@ -28,18 +27,15 @@ const AddEventModal = () => {
         const success=await addEvent(eventForm).unwrap();
         if(success?.success){
             dispatch(resetEventForm())
-            setOpen(false);
+            dispatch(setShowAddEventModal(false));
         }
     }
 
     return (
         <div>
-            <div className='flex w-full justify-between mb-5'>
-                <Search />
-                <CommonButton title="Add Event" onClick={() => { setOpen(true) }} />
-            </div>
-            <CommonModal isOpen={open} onClose={() => { setOpen(false) }} title="Add Event">
-                <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+           
+            <CommonModal isOpen={showAddEventModal} onClose={() => { dispatch(setShowAddEventModal(false)) }} title="Add Event">
+                <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
                     <CommonInput
                         value={eventForm?.title}
                         onChange={handleChange}
@@ -76,7 +72,7 @@ const AddEventModal = () => {
                         placeholder="Enter location"
                     />
 
-                    <div className="border-t border-gray-300 pt-6 flex justify-end gap-4">
+                    <div className="border-t border-gray-300 pt-3 flex justify-end gap-x-4">
                         <button type="button"
                             className="px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Close</button>
                         <button type="submit"
