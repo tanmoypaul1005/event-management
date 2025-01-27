@@ -1,5 +1,4 @@
 "use client"
-import { setShowAddEventModal } from '@/redux/features/event/eventSlice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
