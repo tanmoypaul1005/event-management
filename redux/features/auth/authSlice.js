@@ -37,12 +37,16 @@ const registerSlice = createSlice({
             const { field, value } = action.payload;
             state.loginForm[field] = value;
         },
+        resetRegisterForm: (state) => {
+            state.registerForm = initialUserState;
+          },
     }
 });
 
 export const {
     handleRegisterFormChange,
-    handleLoginFormChange
+    handleLoginFormChange,
+    resetRegisterForm
 } = registerSlice.actions;
 
 export default registerSlice.reducer;
