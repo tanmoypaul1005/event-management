@@ -2,6 +2,7 @@
 
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
+import CommonTimePicker from '@/components/timePicke/CommonTimePicke';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
 import { handleEventFormFormChange, resetEventForm, setShowAddEventModal } from '@/redux/features/event/eventSlice';
 import React from 'react';
@@ -54,27 +55,33 @@ const AddEventModal = () => {
                         label="Description"
                         placeholder="Enter description"
                     />
-                    <CommonInput
-                        value={eventForm?.start_time}
-                        onChange={handleChange}
-                        name="start_time"
-                        label="Start Time"
+                    <CommonTimePicker
+                        init_time={eventForm?.start_time}
+                        onChange={(value) => {
+                            dispatch(handleEventFormFormChange({ field: "start_time", value }));
+                        }}
                         placeholder="Enter start time"
+                        label='Start time'
                     />
-                    <CommonInput
-                        value={eventForm?.end_time}
-                        onChange={handleChange}
-                        name="end_time"
-                        label="End Time"
-                        placeholder="Enter end time"
-                    />
-                    <CommonInput
-                        value={eventForm?.location}
-                        onChange={handleChange}
-                        name="location"
-                        label="Location"
-                        placeholder="Enter location"
-                    />
+                    <div className='mt-[70px]'>
+                        <CommonTimePicker
+                            init_time={eventForm?.end_time}
+                            onChange={(value) => {
+                                dispatch(handleEventFormFormChange({ field: "end_time", value }));
+                            }}
+                            placeholder="Enter end time"
+                            label='Edit time'
+                        />
+                    </div>
+                    <div className='mt-[70]'>
+                        <CommonInput
+                            value={eventForm?.location}
+                            onChange={handleChange}
+                            name="location"
+                            label="Location"
+                            placeholder="Enter location"
+                        />
+                    </div>
 
                     <div className="border-t border-gray-300 pt-3 flex justify-end gap-x-4">
                         <button

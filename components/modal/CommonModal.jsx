@@ -8,8 +8,8 @@ const CommonModal = ({title="", isOpen, onClose, children }) => {
         <div>
             {isOpen && 
             <div
-                className="fixed inset-0 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
-                <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-4 relative">
+                className=" fixed inset-0 flex flex-wrap justify-center items-center w-screen h-full z-50 before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+                <div className="max-w-[600px] min-w-[600px] bg-white shadow-lg rounded-lg p-4 relative">
                     <div className="flex items-center pb-3 border-b border-gray-300">
                         <h3 className="text-gray-800 text-xl font-bold flex-1">{title}</h3>
                         <div onClick={onClose}>

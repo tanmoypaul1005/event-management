@@ -22,7 +22,7 @@ function CommonInput({
 
     return (
         <div>
-            <label className="text-gray-800 text-sm mb-2 block">{label}</label>
+            <label className="text-gray-800 text-left justify-start items-center text-sm mb-2 block">{label}</label>
             <div className="relative flex items-center">
                 <input value={value} onChange={onChange} name={name}
                     type={type === 'password' && !showPassword ? 'password' : 'text'}

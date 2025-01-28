@@ -2,6 +2,7 @@
 
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
+import CommonTimePicker from '@/components/timePicke/CommonTimePicke';
 import { useEditEventMutation } from '@/redux/features/event/eventApi';
 import { handleEditEventFormFormChange, setEventFullFormEdit } from '@/redux/features/event/eventSlice';
 import React, { useState } from 'react';
@@ -13,7 +14,7 @@ const EventEditModal = ({ event }) => {
 
     const { eventFormEdit } = useSelector((state) => state.event);
 
-    const [editEvent]=useEditEventMutation();
+    const [editEvent] = useEditEventMutation();
 
     const dispatch = useDispatch();
 
@@ -24,14 +25,14 @@ const EventEditModal = ({ event }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = await editEvent({id:event?._id,data:eventFormEdit}).unwrap();
+        const success = await editEvent({ id: event?._id, data: eventFormEdit }).unwrap();
         if (success?.success) {
             // dispatch(resetEventForm())
             setOpen(false);
         }
     }
 
-    const handleClose=()=>{
+    const handleClose = () => {
         setOpen(false)
     }
 
@@ -41,7 +42,7 @@ const EventEditModal = ({ event }) => {
                 <button
                     onClick={() => {
                         dispatch(setEventFullFormEdit(event))
-                        setOpen(true)
+                        setOpen(true);
                     }}
                     className="mr-4" title="Edit">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-blue-500 hover:fill-blue-700"
@@ -71,27 +72,35 @@ const EventEditModal = ({ event }) => {
                         label="Description"
                         placeholder="Enter description"
                     />
-                    <CommonInput
-                        value={eventFormEdit?.start_time}
-                        onChange={handleChange}
-                        name="start_time"
-                        label="Start Time"
+                    
+                    <CommonTimePicker
+                        init_time={eventFormEdit?.start_time}
+                        onChange={(value) => {
+                            dispatch(handleEditEventFormFormChange({ field: "start_time", value }));
+                        }}
                         placeholder="Enter start time"
+                        label='Start time'
                     />
-                    <CommonInput
-                        value={eventFormEdit?.end_time}
-                        onChange={handleChange}
-                        name="end_time"
-                        label="End Time"
-                        placeholder="Enter end time"
-                    />
-                    <CommonInput
-                        value={eventFormEdit?.location}
-                        onChange={handleChange}
-                        name="location"
-                        label="Location"
-                        placeholder="Enter location"
-                    />
+                    <div className='mt-[70px]'>
+                        <CommonTimePicker
+                            init_time={eventFormEdit?.end_time}
+                            onChange={(value) => {
+                                dispatch(handleEditEventFormFormChange({ field: "end_time", value }));
+                            }}
+                            placeholder="Enter end time"
+                            label='End time'
+                        />
+                    </div>
+
+                    <div className='mt-[70px]'>
+                        <CommonInput
+                            value={eventFormEdit?.location}
+                            onChange={handleChange}
+                            name="location"
+                            label="Location"
+                            placeholder="Enter location"
+                        />
+                    </div>
 
                     <div className="border-t border-gray-300 pt-3 flex justify-end gap-x-4">
                         <button onClick={handleClose} type="button"

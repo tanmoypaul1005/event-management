@@ -66,12 +66,12 @@ export async function GET(request) {
       const userId = decoded.id;
 
       // Find events based on user ID and search query
-      const event = await User.findOne({_id:userId});
+      const user = await User.findOne({_id: userId}, 'name email');
 
       return Response.json({
           success: true,
           status: 200,
-          data: event,
+          data: user,
       });
   } catch (err) {
       console.error(err);
