@@ -6,7 +6,7 @@ export async function middleware(request) {
 
   const token = request.cookies.get('accessToken')?.value;
 
-  console.log('Token:', token); // Log the token for debugging
+  // console.log('Token:', token); // Log the token for debugging
 
   // If there is no token, redirect to the login page
   // if (!token) {
