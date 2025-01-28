@@ -61,7 +61,10 @@ export async function GET(request) {
                 { start_time: { $regex: searchQuery, $options: 'i' } },
                 { end_time: { $regex: searchQuery, $options: 'i' } }
             ]
-        }).populate("user");
+        }).populate({
+            path: 'user',
+            select: '_id email name'
+          });
 
         return Response.json({
             success: true,
