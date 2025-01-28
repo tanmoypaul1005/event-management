@@ -92,7 +92,7 @@ const EventList = () => {
                                             </td>
                                             <td className="p-4 flex items-center">
                                                 {
-                                                    userInfo?.data?._id ==item?.user && <div className='flex items-center'>
+                                                    (userInfo?.data?._id ==item?.user?._id) && <div className='flex items-center'>
                                                         <button
                                                             onClick={(e) => {
                                                                 console.log("ssss")

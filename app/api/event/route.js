@@ -61,7 +61,7 @@ export async function GET(request) {
                 { start_time: { $regex: searchQuery, $options: 'i' } },
                 { end_time: { $regex: searchQuery, $options: 'i' } }
             ]
-        });
+        }).populate("user");
 
         return Response.json({
             success: true,
