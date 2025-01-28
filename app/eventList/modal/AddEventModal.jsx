@@ -2,7 +2,7 @@
 
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
-import CommonTimePicker from '@/components/timePicke/CommonTimePicke';
+import CommonTimePicker from '@/components/timePicker/CommonTimePicker';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
 import { handleEventFormFormChange, resetEventForm, setShowAddEventModal } from '@/redux/features/event/eventSlice';
 import React from 'react';
@@ -40,7 +40,7 @@ const AddEventModal = () => {
         <div>
 
             <CommonModal isOpen={showAddEventModal} onClose={handleClose} title="Add Event">
-                <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-3 mt-3'>
                     <CommonInput
                         value={eventForm?.title}
                         onChange={handleChange}

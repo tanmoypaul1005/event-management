@@ -2,7 +2,7 @@
 
 import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
-import CommonTimePicker from '@/components/timePicke/CommonTimePicke';
+import CommonTimePicker from '@/components/timePicker/CommonTimePicker';
 import { useEditEventMutation } from '@/redux/features/event/eventApi';
 import { handleEditEventFormFormChange, setShowEditEventModal } from '@/redux/features/event/eventSlice';
 import React from 'react';
