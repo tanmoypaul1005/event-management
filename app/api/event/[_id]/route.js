@@ -96,7 +96,7 @@ export async function PUT(request) {
             success: true,
             status: 200,
             data: event,
-            message:"Event delete Successfully"
+            message:"Event update Successfully"
         });
     } catch (err) {
         console.error(err);

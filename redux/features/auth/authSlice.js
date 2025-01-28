@@ -10,6 +10,11 @@ const initialUserState = {
     confirmPassword: "",
 };
 
+const loginFormSate={
+    email: "",
+    password: "",
+}
+
 // Initial state
 const initialState = {
     showAddTransferProductModal: false,
@@ -40,13 +45,17 @@ const registerSlice = createSlice({
         resetRegisterForm: (state) => {
             state.registerForm = initialUserState;
           },
+          resetLoginForm: (state) => {
+            state.loginForm = loginFormSate;
+          },
     }
 });
 
 export const {
     handleRegisterFormChange,
     handleLoginFormChange,
-    resetRegisterForm
+    resetRegisterForm,
+    resetLoginForm
 } = registerSlice.actions;
 
 export default registerSlice.reducer;

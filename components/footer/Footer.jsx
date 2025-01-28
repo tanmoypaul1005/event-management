@@ -5,9 +5,7 @@ const Footer = () => {
         <footer className="font-sans tracking-wide bg-gray-900 px-10 pt-12 pb-6">
             <div className="flex flex-wrap justify-between gap-10">
                 <div className="max-w-md">
-                    <a href='javascript:void(0)'>
-                        <img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
-                    </a>
+                   <div  className='text-white text-[20px] font-bold'>Event Management</div>
                     <div className="mt-6">
                         <p className="text-white leading-relaxed text-sm">ReadymadeUI is a library of pre-designed UI components built for Tailwind CSS. It offers a collection of versatile, ready-to-use components that streamline the development process by providing a wide range of UI elements.</p>
                     </div>
@@ -114,7 +112,7 @@ const Footer = () => {
                     </li>
                 </ul>
 
-                <p className='text-white text-sm md:ml-auto'>© ReadymadeUI. All rights reserved.</p>
+                <p className='text-white text-sm md:ml-auto'>© Event Management . All rights reserved.</p>
             </div>
         </footer>
 
