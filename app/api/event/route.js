@@ -68,7 +68,7 @@ export async function GET(request) {
 
         // Find events based on user ID and search query
         const event = await Event.find({
-            user: userId,
+            // user: userId,
             $or: [
                 { title: { $regex: searchQuery, $options: 'i' } },
                 { description: { $regex: searchQuery, $options: 'i' } },

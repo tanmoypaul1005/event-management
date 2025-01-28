@@ -25,7 +25,6 @@ const EventList = () => {
 
 
     const handleClick = (event) => {
-        console.log("ssss")
         dispatch(setShowEventDetailsModal(true));
         dispatch(setEventDetails(event))
     }
@@ -34,13 +33,11 @@ const EventList = () => {
         getEvent(eventSearch);
     }, [searchValue])
 
-    // console.log("event", event);
-
     return (
         <>
             <AddEventModal />
             <EventDetailsModal />
-            <EventEditModal/>
+            <EventEditModal />
             <div className='flex w-full justify-between mb-5'>
                 <Search />
                 <CommonButton title="Add Event" onClick={() => { dispatch(setShowAddEventModal(true)) }} />

@@ -115,7 +115,6 @@ const Footer = () => {
                 <p className='text-white text-sm md:ml-auto'>© Event Management . All rights reserved.</p>
             </div>
         </footer>
-
     );
 };
 
