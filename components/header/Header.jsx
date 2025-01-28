@@ -13,7 +13,7 @@ const Header = () => {
 
     const { userInfo } = useLogin();
 
-    const router=useRouter();
+    const router = useRouter();
 
     return (
         <div>
@@ -71,14 +71,27 @@ const Header = () => {
                             </div>
 
                             <LogoutModal />
-                        </>: 
-                        <button
-                          onClick={()=>{
-                            router.push("/login")
-                          }}
-                        className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Login</button>
-                        
-                    }
+                        </> :
+                            <>
+                                <button
+                                    onClick={() => {
+                                        router.push("/login")
+                                    }}
+                                    className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>
+                                    Login
+                                </button>
+
+
+                                <button
+                                    onClick={() => {
+                                        router.push("/register")
+                                    }}
+                                    className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>
+                                    Register
+                                </button>
+                            </>
+
+                        }
 
                         <button id="toggleOpen" className='lg:hidden'>
                             <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

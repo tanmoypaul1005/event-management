@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import CommonModal from './CommonModal';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/redux/features/auth/authApi';
+import CancelButton from '../button/CancelButton';
 
 const LogoutModal = () => {
 
@@ -41,14 +42,10 @@ const LogoutModal = () => {
                 title="Logout Confirmation"
             >
 
-                <div className="">
-                    <p className="text-gray-700 text-lg mb-4">Are you sure you want to logout?</p>
+                <div>
+                    <p className="text-gray-700 text-lg my-3">Are you sure you want to logout?</p>
                     <div className="flex justify-end space-x-4">
-                        <button
-                            onClick={() => setOpen(false)}
-                            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-all ease-in-out duration-300">
-                            Cancel
-                        </button>
+                        <CancelButton onClick={() => setOpen(false)}/>
                         <button
                             onClick={() => {
                                 handleLogout()

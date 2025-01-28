@@ -9,7 +9,6 @@ const useLogin = () => {
     useEffect(() => {
         getUserDetails();
     }, [getUserDetails]);
-    console.log("sss", userInfo)
     return { userInfo, error, isLoading };
 };
 

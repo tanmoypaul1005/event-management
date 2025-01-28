@@ -61,7 +61,7 @@ const EventEditModal = () => {
                         placeholder="Enter start time"
                         label='Start time'
                     />
-                    <div className='mt-[70px]'>
+                    <div className='my-[70px]'>
                         <CommonTimePicker
                             init_time={eventFormEdit?.end_time}
                             onChange={(value) => {
@@ -72,7 +72,7 @@ const EventEditModal = () => {
                         />
                     </div>
 
-                    <div className='mt-[70px]'>
+                    <div className=''>
                         <CommonInput
                             value={eventFormEdit?.location}
                             onChange={handleChange}

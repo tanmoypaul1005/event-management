@@ -61,7 +61,7 @@ export async function GET(request) {
                 { start_time: { $regex: searchQuery, $options: 'i' } },
                 { end_time: { $regex: searchQuery, $options: 'i' } }
             ]
-        }).populate({
+        }).sort({ createdAt: -1 }).populate({
             path: 'user',
             select: '_id email name'
           });
