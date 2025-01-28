@@ -32,7 +32,7 @@ export default function FreeDropDown({
       >
         <Menu.Items
 
-          className={`absolute top-[-115] right-0 mt-2 bg-white rounded-md origin-bottom-right outline-none ${width} ${shadowCustom} focus:outline-none`}
+          className={`absolute bottom-12 right-0 mt-2 bg-white rounded-md origin-bottom-right outline-none ${width} ${shadowCustom} focus:outline-none`}
         >
 
           {({ close }) => (

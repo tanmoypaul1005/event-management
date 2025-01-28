@@ -28,7 +28,6 @@ const CommonTimePicker = ({
            
             <div className={`outline-visible outline-hidden absolute outline-none top-0 left-0 bg-white ${heightClass} w-full z-10`}>
                 <FreeDropDown
-                   
                     width={500}
                     body={
                         <TimePickerNew
