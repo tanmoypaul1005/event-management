@@ -1,18 +1,14 @@
+
 import React from 'react'
-// import { RotatingLines } from "react-loader-spinner";
+import { ImSpinner3 } from 'react-icons/im'
+
 function TableLoading() {
     return (
         <tr className="container w-full h-[50vh]">
             <td className='' colSpan="6">
                 <div className='flex justify-center items-center'>
-
-                {/* <RotatingLines
-                    width="100"
-                    strokeColor="#285D43"
-                    strokeWidth={4}
-                    strokeWidthSecondary={3}
-                    /> */}
-                    </div>
+                    <ImSpinner3 className=" flex justify-center items-center w-[150px] h-[150px] mt-[2px] animate-spin" />
+                </div>
             </td>
         </tr>
 
