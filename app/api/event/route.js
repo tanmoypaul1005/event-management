@@ -72,7 +72,9 @@ export async function GET(request) {
             $or: [
                 { title: { $regex: searchQuery, $options: 'i' } },
                 { description: { $regex: searchQuery, $options: 'i' } },
-                { location: { $regex: searchQuery, $options: 'i' } }
+                { location: { $regex: searchQuery, $options: 'i' } },
+                { start_time: { $regex: searchQuery, $options: 'i' } },
+                { end_time: { $regex: searchQuery, $options: 'i' } }
             ]
         });
 

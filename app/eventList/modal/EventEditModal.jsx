@@ -8,7 +8,7 @@ import { handleEditEventFormFormChange, setShowEditEventModal } from '@/redux/fe
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const EventEditModal = ({ event }) => {
+const EventEditModal = () => {
 
     const { eventFormEdit, showEditEventModal } = useSelector((state) => state.event);
 
@@ -23,10 +23,10 @@ const EventEditModal = ({ event }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = await editEvent({ id: event?._id, data: eventFormEdit }).unwrap();
+        const { _id, ...itemWithoutId } = eventFormEdit;
+        const success = await editEvent({ id: _id, data: itemWithoutId }).unwrap();
         if (success?.success) {
-            // dispatch(resetEventForm())
-            setOpen(false);
+            handleClose();
         }
     }
 

@@ -99,7 +99,7 @@ const EventList = () => {
                                                         dispatch(setEventFullFormEdit(item))
                                                         dispatch(setShowEditEventModal(true))
                                                     }}
-                                                    className="mr-4" title="Edit">
+                                                    className="mr-4 w-6 flex justify-center" title="Edit">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-blue-500 hover:fill-blue-700"
                                                         viewBox="0 0 348.882 348.882">
                                                         <path
