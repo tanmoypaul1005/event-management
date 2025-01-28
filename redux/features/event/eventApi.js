@@ -30,7 +30,7 @@ export const eventApi = apiSlice.injectEndpoints({
 
     getEvent: builder.query({
         query: (search) => ({
-          url:`event?q=${search}`,
+          url:search?`event?q=${search}`:"event",
           method: "GET",
         }),
         onQueryStarted: async (arg, { queryFulfilled,dispatch }) => {
