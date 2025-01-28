@@ -9,12 +9,12 @@ const LogoutModal = () => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
 
-    const [logout]=useLogoutMutation();
+    const [logout] = useLogoutMutation();
 
-    const handleLogout = async() => {
+    const handleLogout = async () => {
 
-        const success=await logout().unwrap();
-        if(success?.success){
+        const success = await logout().unwrap();
+        if (success?.success) {
             router.push("/login")
         }
         // if (typeof window !== 'undefined') {

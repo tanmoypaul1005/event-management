@@ -4,10 +4,16 @@ import LogoutModal from '../modal/LogoutModal';
 import Link from 'next/link';
 import { iUserAvatar } from '@/util/imageImports';
 import Image from 'next/image';
+import useLogin from '@/helper/hook/useLogin';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
 
     const user = typeof window === 'undefined' ? "" : JSON.parse(localStorage.getItem("user"));
+
+    const { userInfo } = useLogin();
+
+    const router=useRouter();
 
     return (
         <div>
@@ -56,15 +62,23 @@ const Header = () => {
                     </div>
 
                     <div className='flex justify-center items-center max-lg:ml-auto space-x-4'>
-                        <div>
+                        {userInfo?.success ? <>
+                            <div>
+                                <Link href={"/profile"} className='max-lg:border-b flex gap-x-2 border-gray-300 max-lg:py-3 px-3'>
+                                    <Image src={iUserAvatar} alt="" />
+                                    <div className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{user?.name ?? ""}</div>
+                                </Link>
+                            </div>
 
-                            <Link href={"/profile"} className='max-lg:border-b flex gap-x-2 border-gray-300 max-lg:py-3 px-3'>
-                            <Image src={iUserAvatar} alt="" />
-                                <div className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{user?.name ?? "oo"}</div>
-                            </Link>
-                        </div>
-
-                        <LogoutModal />
+                            <LogoutModal />
+                        </>: 
+                        <button
+                          onClick={()=>{
+                            router.push("/login")
+                          }}
+                        className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Login</button>
+                        
+                    }
 
                         <button id="toggleOpen" className='lg:hidden'>
                             <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

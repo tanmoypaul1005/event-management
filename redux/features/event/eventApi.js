@@ -42,12 +42,12 @@ export const eventApi = apiSlice.injectEndpoints({
                 dispatch(setSearchLoading(false))
             } else {
                 dispatch(setSearchLoading(false))
-              Toastr({ message: response?.data?.msg, type: "error" });
+              // Toastr({ message: response?.data?.msg, type: "error" });
             }
           } catch (error) {
             dispatch(setSearchLoading(false))
             console.error("Error:", error);
-            Toastr({ message: "An error occurred!", type: "error" });
+            // Toastr({ message: "An error occurred!", type: "error" });
           }
         },
         providesTags: ["event"],

@@ -56,25 +56,22 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     getUserDetails: builder.query({
-      query: (search) => ({
+      query: () => ({
         url: `/user`,
         method: "GET",
       }),
       onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
         try {
-          dispatch(setSearchLoading(true))
           const response = await queryFulfilled;
           console.log("Response:", response);
           if (response?.data?.success) {
             // dispatch(setSearchLoading(false))
           } else {
-            // dispatch(setSearchLoading(false))
-            Toastr({ message: response?.data?.message, type: "error" });
+            // Toastr({ message: response?.data?.message, type: "error" });
           }
         } catch (error) {
-          dispatch(setSearchLoading(false))
-          console.error("Error:", error);
-          Toastr({ message: "An error occurred!", type: "error" });
+          // console.error("Error:", error);
+          // Toastr({ message: "An error occurred!", type: "error" });
         }
       },
       providesTags: ["event"],

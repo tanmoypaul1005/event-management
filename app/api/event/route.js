@@ -46,21 +46,6 @@ export async function GET(request) {
     try {
         await connectMongo();
 
-        // Get a specific header
-        const authHeader = request.headers.get('Authorization');
-        const token = authHeader.replace('Bearer ', '');
-        if (!token) {
-            return Response.json({
-                success: false,
-                message: "No token provided",
-                status: 401,
-            });
-        }
-        // Verify and decode the token
-
-        const decoded = await jwt.verify(token, "pp");
-        const userId = decoded.id;
-
         // Get query parameters for search
         const url = new URL(request.url);
         const searchQuery = url.searchParams.get('q') || '';
@@ -68,7 +53,7 @@ export async function GET(request) {
 
         // Find events based on user ID and search query
         const event = await Event.find({
-            user: userId,
+            // user: userId,
             $or: [
                 { title: { $regex: searchQuery, $options: 'i' } },
                 { description: { $regex: searchQuery, $options: 'i' } },
@@ -76,7 +61,7 @@ export async function GET(request) {
                 { start_time: { $regex: searchQuery, $options: 'i' } },
                 { end_time: { $regex: searchQuery, $options: 'i' } }
             ]
-        });
+        }).populate("user");
 
         return Response.json({
             success: true,
