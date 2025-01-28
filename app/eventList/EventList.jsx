@@ -33,7 +33,7 @@ const EventList = () => {
 
     useEffect(() => {
         getEvent(eventSearch);
-    }, [searchValue])
+    }, [searchValue,getEvent])
 
     return (
         <>
