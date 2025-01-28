@@ -4,7 +4,7 @@ import CommonInput from '@/components/input/CommonInput';
 import CommonModal from '@/components/modal/CommonModal';
 import CommonTimePicker from '@/components/timePicker/CommonTimePicker';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
-import { handleEventFormFormChange, resetEventForm, setShowAddEventModal } from '@/redux/features/event/eventSlice';
+import { handleEventFormFormChange, resetEventForm, setCurrentPage, setShowAddEventModal } from '@/redux/features/event/eventSlice';
 import { Toastr, validateForm } from '@/util/utilityFunctions';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +28,8 @@ const AddEventModal = () => {
         if (!valid) return;
         const success = await addEvent(eventForm).unwrap();
         if (success?.success) {
-            dispatch(resetEventForm())
+            dispatch(resetEventForm());
+            dispatch(setCurrentPage(1))
             dispatch(setShowAddEventModal(false));
         }
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import { RotatingLines } from "react-loader-spinner";
 function TableLoading() {
     return (
-        <tr className="container w-full h-[40vh]">
+        <tr className="container w-full h-[50vh]">
             <td className='' colSpan="6">
                 <div className='flex justify-center items-center'>
 

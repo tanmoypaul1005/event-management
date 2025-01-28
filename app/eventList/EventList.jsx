@@ -7,7 +7,7 @@ import { useDebounce } from 'use-debounce';
 import EmptyTable from '@/components/EmptyTable';
 import Search from '@/components/search/Search';
 import CommonButton from '@/components/button/CommonButton';
-import { setEventDetails, setEventFullFormEdit, setShowAddEventModal, setShowEditEventModal, setShowEventDetailsModal } from '@/redux/features/event/eventSlice';
+import { setCurrentPage, setEventDetails, setEventFullFormEdit, setShowAddEventModal, setShowEditEventModal, setShowEventDetailsModal } from '@/redux/features/event/eventSlice';
 import EventEditModal from './modal/EventEditModal';
 import EventDetailsModal from './modal/EventDetailsModal';
 import useLogin from '@/helper/hook/useLogin';
@@ -15,19 +15,17 @@ import TableLoading from '@/components/TableLoading';
 
 const EventList = () => {
 
-    const { eventSearch, searchLoading } = useSelector((state) => state.event);
+    const dispatch = useDispatch();
+
+    const { eventSearch, searchLoading,currentPage } = useSelector((state) => state.event);
 
     const [searchValue] = useDebounce(eventSearch, 1000);
 
-    const [getEvent, { data: event, isLoading }] = useLazyGetEventQuery();
-
-    const [currentPage, setCurrentPage] = useState(1);
+    const [getEvent, { data: event }] = useLazyGetEventQuery();
 
     const handlePageChange = (page) => {
-        setCurrentPage(page);
+        dispatch(setCurrentPage(page));
     };
-
-    const dispatch = useDispatch();
 
     const [deleteEvent] = useDeleteEventMutation();
 
