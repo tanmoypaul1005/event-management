@@ -47,7 +47,7 @@ const CommonTimePicker = ({
                         <div className='w-full z-1'>
                             <label className="text-gray-800 text-left justify-start items-center text-sm mb-2 block">{label}</label>
                             <div
-                                className={"w-full text-start flex justify-start text-sm text-gray-800 border border-gray-300 pl-4  pr-10 py-3 rounded-lg outline-blue-600"}>
+                                className={"w-full text-start flex justify-start text-sm text-gray-800 border border-gray-300 pl-4  pr-10 py-2 rounded-lg outline-blue-600"}>
                                 {init_time ?init_time: placeholder}
                             </div>
                         </div>

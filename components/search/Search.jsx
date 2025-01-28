@@ -9,7 +9,7 @@ const Search = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="flex relative pl-4 pr-8 py-3 rounded-md border-2 border-blue-500 overflow-hidden  font-[sans-serif]">
+        <div className="flex relative pl-4 pr-8 py-2 rounded-md border-2 border-blue-500 overflow-hidden  font-[sans-serif]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" width="16px"
                 className="fill-gray-600 mr-3 rotate-90">
                 <path

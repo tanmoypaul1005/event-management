@@ -41,7 +41,7 @@ const EventList = () => {
             <EventDetailsModal />
             <EventEditModal />
             <div className='flex w-full justify-between mb-5'>
-                <Search />
+             <Search />
              {userInfo?.success && <CommonButton title="Add Event" onClick={() => { dispatch(setShowAddEventModal(true)) }} />}
             </div>
             <div>
