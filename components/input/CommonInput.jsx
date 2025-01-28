@@ -28,7 +28,7 @@ function CommonInput({
                     type={type === 'password' && !showPassword ? 'password' : 'text'}
                     required={required}
                     placeholder={placeholder}
-                    className="w-full text-sm text-gray-800 border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600" />
+                    className="w-full text-sm text-gray-800 border border-gray-300 pl-4 pr-10 py-2 rounded-lg outline-blue-600" />
                 {type === 'password' && (
                     <button
                         type="button"
