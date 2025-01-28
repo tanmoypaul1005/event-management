@@ -16,6 +16,7 @@ const initialState = {
     eventForm: initialUserState,
     eventFormEdit: initialUserState,
     eventSearch:"",
+    currentPage:1,
     searchLoading:false,
     showAddEventModal:false,
     showEditEventModal:false,
@@ -65,6 +66,10 @@ const eventSlice = createSlice({
         setShowEditEventModal: (state, action) => {
             state.showEditEventModal = action.payload;
         },
+
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
+        },
     }
 });
 
@@ -78,7 +83,8 @@ export const {
     handleEditEventFormFormChange,
     setShowEventDetailsModal,
     setEventDetails,
-    setShowEditEventModal
+    setShowEditEventModal,
+    setCurrentPage
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

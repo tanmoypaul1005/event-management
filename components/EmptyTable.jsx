@@ -1,16 +1,13 @@
 "use client"
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 const EmptyTable = () => {
-
-    const dispatch = useDispatch();
 
     return (
 
         <tr className="container mb-5 w-full">
             <td colSpan="6">
-                <div className="flex items-center mt-6 text-center border rounded-lg h-96">
+                <div className="flex items-center text-center rounded-lg h-96">
                     <div className="flex flex-col justify-center items-center w-full max-w-sm px-4 mx-auto">
                         <div className="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
