@@ -36,7 +36,7 @@ const EventList = () => {
     }, [searchValue])
 
     useEffect(() => {
-        getEvent(eventSearch);
+        getEvent();
     }, [])
 
     return (
