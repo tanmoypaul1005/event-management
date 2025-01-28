@@ -95,7 +95,6 @@ const EventList = () => {
                                                     (userInfo?.data?._id ==item?.user?._id) && <div className='flex items-center'>
                                                         <button
                                                             onClick={(e) => {
-                                                                console.log("ssss")
                                                                 e.stopPropagation();
                                                                 dispatch(setEventFullFormEdit(item))
                                                                 dispatch(setShowEditEventModal(true))
