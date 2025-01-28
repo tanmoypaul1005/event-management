@@ -1,7 +1,7 @@
 "use client"
 import CommonInput from '@/components/input/CommonInput';
 import { useLoginMutation } from '@/redux/features/auth/authApi';
-import { handleLoginFormChange } from '@/redux/features/auth/authSlice';
+import { handleLoginFormChange, resetLoginForm } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -21,6 +21,7 @@ function Login() {
     e.preventDefault();
     const success= await login(loginForm).unwrap();
     if(success?.success){
+      dispatch(resetLoginForm());
       router.push('/');
     }
   }

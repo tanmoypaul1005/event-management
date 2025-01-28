@@ -69,7 +69,7 @@ export const authApi = apiSlice.injectEndpoints({
             // dispatch(setSearchLoading(false))
           } else {
             // dispatch(setSearchLoading(false))
-            Toastr({ message: response?.data?.msg, type: "error" });
+            Toastr({ message: response?.data?.message, type: "error" });
           }
         } catch (error) {
           dispatch(setSearchLoading(false))
@@ -80,35 +80,35 @@ export const authApi = apiSlice.injectEndpoints({
       providesTags: ["event"],
     }),
 
-    // logout: builder.mutation({
-    //   query: (data) => ({
-    //     url: kuLogout,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   onQueryStarted: async (arg, { queryFulfilled }) => {
-    //     try {
-    //       const response = await queryFulfilled;
-    //       console.log("Response:", response);
-    //       if (response?.data?.success) {
-    //         Toastr({ message: response?.data?.msg, type: "success" });
-    //         localStorage.removeItem("user");
-    //         // Clear all remaining items
-    //         localStorage.clear();
+    logout: builder.mutation({
+      query: (data) => ({
+        url: "/logout",
+        method: "POST",
+        body: data,
+      }),
+      onQueryStarted: async (arg, { queryFulfilled }) => {
+        try {
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+            Toastr({ message: response?.data?.message, type: "success" });
+            localStorage.removeItem("user");
+            // Clear all remaining items
+            localStorage.clear();
 
-    //         // Clear the access token cookie
-    //         document.cookie =
-    //           "accessToken=; path=/; max-age=0; secure; samesite=strict";
-    //         document.cookie =
-    //           "refreshToken=; path=/; max-age=0; secure; samesite=strict";
-    //       } else {
-    //         Toastr({ message: response?.data?.msg, type: "error" });
-    //       }
-    //     } catch (error) {
-    //       console.error("Error:", error);
-    //     }
-    //   },
-    // }),
+            // Clear the access token cookie
+            document.cookie =
+              "accessToken=; path=/; max-age=0; secure; samesite=strict";
+            document.cookie =
+              "refreshToken=; path=/; max-age=0; secure; samesite=strict";
+          } else {
+            Toastr({ message: response?.data?.message, type: "error" });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      },
+    }),
 
     // refresh: builder.mutation({
     //   query: (token) => ({
@@ -148,6 +148,7 @@ export const authApi = apiSlice.injectEndpoints({
 export const {
   useRegisterUserMutation,
   useLoginMutation,
-  useLazyGetUserDetailsQuery
+  useLazyGetUserDetailsQuery,
+  useLogoutMutation
 } =
   authApi;

@@ -2,6 +2,7 @@
 import CommonInput from '@/components/input/CommonInput';
 import { useRegisterUserMutation } from '@/redux/features/auth/authApi';
 import { handleRegisterFormChange, resetRegisterForm } from '@/redux/features/auth/authSlice';
+import { Toastr } from '@/util/utilityFunctions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -25,10 +26,9 @@ const Register = () => {
         const success = await registerUser(registerForm).unwrap();
         if (success?.success) {
             router.push('/login');
-        }else{
-            Toastr({ message: response?.message, type: "error" });
+        } else{
+            Toastr({ message: success?.message, type: "error" });
         }
-        console.log("success", success)
     }
 
     return (
