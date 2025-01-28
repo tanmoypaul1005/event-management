@@ -29,7 +29,7 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ['event'], // Add the tagTypes here
+    tagTypes: ['event',"eventDetails"], // Add the tagTypes here
     endpoints: () => ({
 
     }),

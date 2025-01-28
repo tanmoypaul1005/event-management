@@ -53,6 +53,30 @@ export const eventApi = apiSlice.injectEndpoints({
         providesTags: ["event"],
     }),
 
+    getEventDetails: builder.query({
+      query: (id) => ({
+        url: `event/${id}`,
+        method: "GET",
+      }),
+      onQueryStarted: async (arg, { queryFulfilled,dispatch }) => {
+        try {
+          const response = await queryFulfilled;
+          console.log("Response:", response);
+          if (response?.data?.success) {
+              // dispatch(setSearchLoading(false))
+          } else {
+              dispatch(setSearchLoading(false))
+            // Toastr({ message: response?.data?.msg, type: "error" });
+          }
+        } catch (error) {
+          // dispatch(setSearchLoading(false))
+          console.error("Error:", error);
+          // Toastr({ message: "An error occurred!", type: "error" });
+        }
+      },
+      providesTags: ["eventDetails"],
+  }),
+
     deleteEvent: builder.mutation({
       query: (id) => ({
         url: `/event/${id}`,
@@ -72,7 +96,7 @@ export const eventApi = apiSlice.injectEndpoints({
           Toastr({ message: "An error occurred!", type: "error" });
         }
       },
-      invalidatesTags: ["event"],
+      invalidatesTags: ["event","eventDetails"],
     }),
 
     editEvent: builder.mutation({
@@ -95,7 +119,7 @@ export const eventApi = apiSlice.injectEndpoints({
           Toastr({ message: "An error occurred!", type: "error" });
         }
       },
-      invalidatesTags: ["event"],
+      invalidatesTags: ["event","eventDetails"],
     }),
   }),
 });
@@ -104,6 +128,7 @@ export const {
   useAddEventMutation,
   useLazyGetEventQuery,
   useDeleteEventMutation,
-  useEditEventMutation
+  useEditEventMutation,
+  useLazyGetEventDetailsQuery
  } =
   eventApi;

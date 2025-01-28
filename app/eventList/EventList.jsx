@@ -12,6 +12,7 @@ import EventEditModal from './modal/EventEditModal';
 import EventDetailsModal from './modal/EventDetailsModal';
 import useLogin from '@/helper/hook/useLogin';
 import TableLoading from '@/components/TableLoading';
+import { useRouter } from 'next/navigation';
 
 const EventList = () => {
 
@@ -23,6 +24,8 @@ const EventList = () => {
 
     const [getEvent, { data: event }] = useLazyGetEventQuery();
 
+    const router=useRouter();
+
     const handlePageChange = (page) => {
         dispatch(setCurrentPage(page));
     };
@@ -32,23 +35,14 @@ const EventList = () => {
     const { userInfo } = useLogin();
 
     const handleClick = (event) => {
-        dispatch(setShowEventDetailsModal(true));
-        dispatch(setEventDetails(event))
+        // dispatch(setShowEventDetailsModal(true));
+        // dispatch(setEventDetails(event))
+        router.push("/event/"+ event?._id)
     }
-
-    // useEffect(() => {
-    //     if(eventSearch)getEvent(eventSearch);
-    // }, [searchValue])
 
     useEffect(() => {
         getEvent({ search: searchValue, page: currentPage });
     }, [dispatch, currentPage, searchValue]);
-
-    // useEffect(() => {
-    //     getEvent();
-    // }, [])
-
-    console.log("event?.data", event)
 
     return (
         <>
