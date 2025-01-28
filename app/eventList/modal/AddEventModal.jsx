@@ -11,9 +11,9 @@ const AddEventModal = () => {
 
     // const [open, setOpen] = useState(false)
 
-    const { eventForm ,showAddEventModal} = useSelector((state) => state.event);
+    const { eventForm, showAddEventModal } = useSelector((state) => state.event);
 
-    const [addEvent]=useAddEventMutation();
+    const [addEvent] = useAddEventMutation();
 
     const dispatch = useDispatch();
 
@@ -22,19 +22,23 @@ const AddEventModal = () => {
         dispatch(handleEventFormFormChange({ field: name, value }));
     };
 
-    const handleSubmit=async(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const success=await addEvent(eventForm).unwrap();
-        if(success?.success){
+        const success = await addEvent(eventForm).unwrap();
+        if (success?.success) {
             dispatch(resetEventForm())
             dispatch(setShowAddEventModal(false));
         }
     }
 
+    const handleClose = () => {
+        dispatch(setShowAddEventModal(false))
+    }
+
     return (
         <div>
-           
-            <CommonModal isOpen={showAddEventModal} onClose={() => { dispatch(setShowAddEventModal(false)) }} title="Add Event">
+
+            <CommonModal isOpen={showAddEventModal} onClose={handleClose} title="Add Event">
                 <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
                     <CommonInput
                         value={eventForm?.title}
@@ -73,7 +77,9 @@ const AddEventModal = () => {
                     />
 
                     <div className="border-t border-gray-300 pt-3 flex justify-end gap-x-4">
-                        <button type="button"
+                        <button
+                            onClick={handleClose}
+                            type="button"
                             className="px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Close</button>
                         <button type="submit"
                             className="px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Save</button>

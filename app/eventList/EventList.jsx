@@ -40,7 +40,7 @@ const EventList = () => {
                 <CommonButton title="Add Event" onClick={() => { dispatch(setShowAddEventModal(true)) }} />
             </div>
             <div>
-                <div className="font-sans overflow-x-auto">
+                <div className="font-sans overflow-x-auto min-h-[40vh]">
                     <table className="min-w-full bg-white">
                         <thead className="bg-gray-100 whitespace-nowrap">
                             <tr>

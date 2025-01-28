@@ -31,6 +31,10 @@ const EventEditModal = ({ event }) => {
         }
     }
 
+    const handleClose=()=>{
+        setOpen(false)
+    }
+
     return (
         <div>
             <div className='flex'>
@@ -51,7 +55,7 @@ const EventEditModal = ({ event }) => {
                     </svg>
                 </button>
             </div>
-            <CommonModal isOpen={open} onClose={() => { setOpen(false) }} title="Edit Event">
+            <CommonModal isOpen={open} onClose={handleClose} title="Edit Event">
                 <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
                     <CommonInput
                         value={eventFormEdit?.title}
@@ -90,7 +94,7 @@ const EventEditModal = ({ event }) => {
                     />
 
                     <div className="border-t border-gray-300 pt-3 flex justify-end gap-x-4">
-                        <button type="button"
+                        <button onClick={handleClose} type="button"
                             className="px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Close</button>
                         <button type="submit"
                             className="px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Save</button>
