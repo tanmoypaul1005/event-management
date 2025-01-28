@@ -42,41 +42,99 @@ export async function POST(request) {
 }
 
 
+// export async function GET(request) {
+//     try {
+//         await connectMongo();
+
+//         // Get query parameters for search
+//         const url = new URL(request.url);
+//         const searchQuery = url.searchParams.get('q') || '';
+
+//         const page = parseInt(url.searchParams.get('page')) || 1;
+//         const limit = parseInt(url.searchParams.get('limit')) || 10;
+//         const skip = (page - 1) * limit;
+    
+//         // Find events based on user ID and search query
+//         const event = await Event.find({
+//             // user: userId,
+//             $or: [
+//                 { title: { $regex: searchQuery, $options: 'i' } },
+//                 { description: { $regex: searchQuery, $options: 'i' } },
+//                 { location: { $regex: searchQuery, $options: 'i' } },
+//                 { start_time: { $regex: searchQuery, $options: 'i' } },
+//                 { end_time: { $regex: searchQuery, $options: 'i' } }
+//             ]
+//         }).skip(skip).limit(limit).sort({ createdAt: -1 }).populate({
+//             path: 'user',
+//             select: '_id email name'
+//           });
+
+//         return Response.json({
+//             success: true,
+//             status: 200,
+//             data: event,
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         return Response.json({
+//             success: false,
+//             message: err.message,
+//             status: 500,
+//         });
+//     }
+// }
+
+
 export async function GET(request) {
-    try {
-        await connectMongo();
+  try {
+    await connectMongo();
 
-        // Get query parameters for search
-        const url = new URL(request.url);
-        const searchQuery = url.searchParams.get('q') || '';
+    const url = new URL(request.url);
+    const searchQuery = url.searchParams.get('search') || '';
+    const page = parseInt(url.searchParams.get('page')) || 1;
+    const limit =10
+    const skip = (page - 1) * limit;
 
+    const totalEvents = await Event.countDocuments({
+      $or: [
+        { title: { $regex: searchQuery, $options: 'i' } },
+        { description: { $regex: searchQuery, $options: 'i' } },
+        { location: { $regex: searchQuery, $options: 'i' } },
+        { start_time: { $regex: searchQuery, $options: 'i' } },
+        { end_time: { $regex: searchQuery, $options: 'i' } }
+      ]
+    });
 
-        // Find events based on user ID and search query
-        const event = await Event.find({
-            // user: userId,
-            $or: [
-                { title: { $regex: searchQuery, $options: 'i' } },
-                { description: { $regex: searchQuery, $options: 'i' } },
-                { location: { $regex: searchQuery, $options: 'i' } },
-                { start_time: { $regex: searchQuery, $options: 'i' } },
-                { end_time: { $regex: searchQuery, $options: 'i' } }
-            ]
-        }).sort({ createdAt: -1 }).populate({
-            path: 'user',
-            select: '_id email name'
-          });
+    const events = await Event.find({
+      $or: [
+        { title: { $regex: searchQuery, $options: 'i' } },
+        { description: { $regex: searchQuery, $options: 'i' } },
+        { location: { $regex: searchQuery, $options: 'i' } },
+        { start_time: { $regex: searchQuery, $options: 'i' } },
+        { end_time: { $regex: searchQuery, $options: 'i' } }
+      ]
+    })
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .populate({
+        path: 'user',
+        select: '_id email name',
+      });
 
-        return Response.json({
-            success: true,
-            status: 200,
-            data: event,
-        });
-    } catch (err) {
-        console.error(err);
-        return Response.json({
-            success: false,
-            message: err.message,
-            status: 500,
-        });
-    }
+    return new Response(JSON.stringify({
+      success: true,
+      status: 200,
+      events,
+      totalPages: Math.ceil(totalEvents / limit),
+    }), { status: 200 });
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({
+      success: false,
+      message: err.message,
+      status: 500,
+    }), { status: 500 });
+  }
 }
+

@@ -3,8 +3,19 @@ import CommonButton from '@/components/button/CommonButton';
 import CommonModal from '@/components/modal/CommonModal';
 import useLogin from '@/helper/hook/useLogin';
 import { setEventFullFormEdit, setShowEditEventModal, setShowEventDetailsModal } from '@/redux/features/event/eventSlice';
+import { base_url_raw } from '@/util/const';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import {
+    FacebookShareButton,
+    TwitterShareButton,
+    LinkedinShareButton,
+    WhatsappShareButton,
+    FacebookIcon,
+    TwitterIcon,
+    LinkedinIcon,
+    WhatsappIcon
+} from 'react-share';
 
 function EventDetailsModal() {
 
@@ -17,6 +28,7 @@ function EventDetailsModal() {
     const handleClose = () => {
         dispatch(setShowEventDetailsModal(false))
     }
+    const shareUrl = base_url_raw; // You can customize this URL based on your requirements
 
     return (
         <div>
@@ -28,7 +40,7 @@ function EventDetailsModal() {
                     <DetailRow label="End Time" value={eventDetails?.end_time} />
                     <DetailRow label="Location" value={eventDetails?.location} />
 
-                    <div className="border rounded-lg p-4 bg-gray-50 shadow-md">
+                    <div className="border rounded-lg p-3 bg-gray-50 shadow-md">
                         <div className="flex justify-between items-center mb-2">
                             <h3 className="text-lg font-semibold text-gray-800">Event Creator Information</h3>
                         </div>
@@ -49,6 +61,24 @@ function EventDetailsModal() {
                                 <div className="text-sm font-medium text-gray-700">Email</div>
                                 <div className="text-sm text-gray-900">{eventDetails?.user?.email}</div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-3">
+                        <h3 className="text-lg font-semibold">Share this event:</h3>
+                        <div className="flex gap-2 mt-2">
+                            <FacebookShareButton url={shareUrl} quote={eventDetails?.title}>
+                                <FacebookIcon size={32} round />
+                            </FacebookShareButton>
+                            <TwitterShareButton url={shareUrl} title={eventDetails?.title}>
+                                <TwitterIcon size={32} round />
+                            </TwitterShareButton>
+                            <LinkedinShareButton url={shareUrl} title={eventDetails?.title} summary={eventDetails?.description}>
+                                <LinkedinIcon size={32} round />
+                            </LinkedinShareButton>
+                            <WhatsappShareButton url={shareUrl} title={eventDetails?.title}>
+                                <WhatsappIcon size={32} round />
+                            </WhatsappShareButton>
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddEventModal from './modal/AddEventModal';
 import { useDeleteEventMutation, useLazyGetEventQuery } from '@/redux/features/event/eventApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +20,12 @@ const EventList = () => {
 
     const [getEvent, { data: event }] = useLazyGetEventQuery();
 
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
     const dispatch = useDispatch();
 
     const [deleteEvent] = useDeleteEventMutation();
@@ -31,13 +37,19 @@ const EventList = () => {
         dispatch(setEventDetails(event))
     }
 
-    useEffect(() => {
-        if(eventSearch)getEvent(eventSearch);
-    }, [searchValue])
+    // useEffect(() => {
+    //     if(eventSearch)getEvent(eventSearch);
+    // }, [searchValue])
 
     useEffect(() => {
-        getEvent();
-    }, [])
+        getEvent({ search: searchValue, page: currentPage });
+    }, [dispatch, currentPage, searchValue]);
+
+    // useEffect(() => {
+    //     getEvent();
+    // }, [])
+
+    console.log("event?.data", event)
 
     return (
         <>
@@ -45,8 +57,8 @@ const EventList = () => {
             <EventDetailsModal />
             <EventEditModal />
             <div className='flex w-full justify-between mb-5'>
-             <Search />
-             {userInfo?.success && <CommonButton title="Add Event" onClick={() => { dispatch(setShowAddEventModal(true)) }} />}
+                <Search />
+                {userInfo?.success && <CommonButton title="Add Event" onClick={() => { dispatch(setShowAddEventModal(true)) }} />}
             </div>
             <div>
                 <div className="font-sans overflow-x-auto min-h-[40vh]">
@@ -76,27 +88,27 @@ const EventList = () => {
 
                         <tbody className="whitespace-nowrap">
                             {
-                                event?.data?.length > 0 ?
-                                    event?.data?.map((item, index) => (
+                                event?.events?.length > 0 ?
+                                    event?.events?.map((item, index) => (
                                         <tr onClick={() => { handleClick(item) }} key={index} className="hover:bg-gray-50 cursor-pointer">
-                                            <td className="p-4 text-[15px] text-gray-800">
+                                            <td className="px-4 py-2 text-[14px] text-gray-800">
                                                 {item?.title}
                                             </td>
-                                            <td className="p-4 text-[15px] text-gray-800">
+                                            <td className="px-4 py-2 text-[14px] text-gray-800">
                                                 {item?.description}
                                             </td>
-                                            <td className="p-4 text-[15px] text-gray-800">
+                                            <td className="px-4 py-2 text-[14px] text-gray-800">
                                                 {item?.start_time}
                                             </td>
-                                            <td className="p-4 text-[15px] text-gray-800">
+                                            <td className="px-4 py-2 text-[14px] text-gray-800">
                                                 {item?.end_time}
                                             </td>
-                                            <td className="p-4 text-[15px] text-gray-800">
+                                            <td className="px-4 py-2 text-[14px] text-gray-800">
                                                 {item?.location}
                                             </td>
-                                            <td className="p-4 flex items-center">
+                                            <td className="px-4 py-2 flex items-center">
                                                 {
-                                                    (userInfo?.data?._id ==item?.user?._id) && <div className='flex items-center'>
+                                                    (userInfo?.data?._id == item?.user?._id) && <div className='flex items-center'>
                                                         <button
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
@@ -137,6 +149,19 @@ const EventList = () => {
                             }
                         </tbody>
                     </table>
+
+                    {event?.totalPages > 1 && <div className="flex justify-center mt-4">
+                        {Array.from({ length: event?.totalPages }, (_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handlePageChange(index + 1)}
+                                className={`px-4 py-2 mx-1 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+                                    }`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>}
                 </div>
             </div>
         </>
