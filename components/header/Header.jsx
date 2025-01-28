@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation';
 
 const Header = () => {
 
-    const user = typeof window === 'undefined' ? "" : JSON.parse(localStorage.getItem("user"));
-
     const { userInfo } = useLogin();
 
     const router = useRouter();
@@ -66,7 +64,7 @@ const Header = () => {
                             <div>
                                 <Link href={"/profile"} className='max-lg:border-b flex gap-x-2 border-gray-300 max-lg:py-3 px-3'>
                                     <Image src={iUserAvatar} alt="" />
-                                    <div className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{user?.name ?? ""}</div>
+                                    <div className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>{userInfo?.data?.name ?? ""}</div>
                                 </Link>
                             </div>
 
