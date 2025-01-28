@@ -25,9 +25,7 @@ const CommonTimePicker = ({
 
     return (
         <div className={`relative w-full ${heightClass} outline-none ${marginClass}`}>
-            {/* <div className='absolute bottom-0 left-0'>
-                <input value={value ?? ''} onChange={() => { }} required={required} className="z-0 outline-none h-s1" />
-            </div> */}
+           
             <div className={`outline-visible outline-hidden absolute outline-none top-0 left-0 bg-white ${heightClass} w-full z-10`}>
                 <FreeDropDown
                    

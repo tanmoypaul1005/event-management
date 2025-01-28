@@ -75,7 +75,7 @@ const EventList = () => {
                             {
                                 event?.data?.length > 0 ?
                                     event?.data?.map((item, index) => (
-                                        <tr onClick={() => { handleClick(item) }} key={index} className="hover:bg-gray-50">
+                                        <tr onClick={() => { handleClick(item) }} key={index} className="hover:bg-gray-50 cursor-pointer">
                                             <td className="p-4 text-[15px] text-gray-800">
                                                 {item?.title}
                                             </td>

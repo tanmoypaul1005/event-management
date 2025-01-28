@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const AddEventModal = () => {
 
-    // const [open, setOpen] = useState(false)
-
     const { eventForm, showAddEventModal } = useSelector((state) => state.event);
 
     const [addEvent] = useAddEventMutation();
