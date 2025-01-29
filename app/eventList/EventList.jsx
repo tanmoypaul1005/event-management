@@ -47,10 +47,6 @@ const EventList = () => {
         getEvent({ search: searchValue ?? "", page: currentPage });
     }, [dispatch, currentPage, searchValue]);
 
-    useEffect(() => {
-        getEvent({ search: searchValue ?? "", page: currentPage });
-    }, []);
-
     return (
         <>
             <AddEventModal />
