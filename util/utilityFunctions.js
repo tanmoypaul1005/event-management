@@ -51,3 +51,23 @@ export const formatDate = (date) => {
   const year = d.getFullYear();
   return `${year}-${month}-${day}`;
 };
+
+
+export const buildUrl = ({ search, page, limit }) => {
+  let url = 'event?';
+
+  if (search) {
+    url += `search=${search}&`;
+  }
+
+  if (page) {
+    url += `page=${page}&`;
+  }
+
+  if (limit) {
+    url += `limit=${limit}&`;
+  }
+
+  // Remove the trailing '&' or '?' if no parameters were added
+  return url.slice(-1) === '&' ? url.slice(0, -1) : url;
+};

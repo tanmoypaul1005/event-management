@@ -1,5 +1,5 @@
 
-import { Toastr } from "@/util/utilityFunctions";
+import { buildUrl, Toastr } from "@/util/utilityFunctions";
 import { apiSlice } from "../api/apiSlice";
 import { setSearchLoading } from "./eventSlice";
 
@@ -30,7 +30,7 @@ export const eventApi = apiSlice.injectEndpoints({
 
     getEvent: builder.query({
         query: ({search,page,limit}) => ({
-          url: "/event",
+          url: buildUrl({ search, page, limit }),
           method: "GET",
         }),
         onQueryStarted: async (arg, { queryFulfilled,dispatch }) => {
