@@ -105,15 +105,21 @@ export async function GET(request) {
       ]
     });
 
-    const events = await Event.find({
-      $or: [
-        { title: { $regex: searchQuery, $options: 'i' } },
-        { description: { $regex: searchQuery, $options: 'i' } },
-        { location: { $regex: searchQuery, $options: 'i' } },
-        { start_time: { $regex: searchQuery, $options: 'i' } },
-        { end_time: { $regex: searchQuery, $options: 'i' } }
-      ]
-    })
+    let query = {};
+
+    if (searchQuery) {
+      query = {
+        $or: [
+          { title: { $regex: searchQuery, $options: 'i' } },
+          { description: { $regex: searchQuery, $options: 'i' } },
+          { location: { $regex: searchQuery, $options: 'i' } },
+          { start_time: { $regex: searchQuery, $options: 'i' } },
+          { end_time: { $regex: searchQuery, $options: 'i' } }
+        ]
+      };
+    }
+
+    const events = await Event.find(query)
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 })
