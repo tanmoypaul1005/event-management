@@ -44,11 +44,11 @@ const EventList = () => {
     }
 
     useEffect(() => {
-        getEvent({ search: searchValue, page: currentPage });
+        getEvent({ search: searchValue ?? "", page: currentPage });
     }, [dispatch, currentPage, searchValue]);
 
     useEffect(() => {
-        getEvent({ search: searchValue, page: currentPage });
+        getEvent({ search: searchValue ?? "", page: currentPage });
     }, []);
 
     return (
@@ -189,7 +189,7 @@ const EventList = () => {
                         </div>
                     </div>
                     :
-                    <CalenderView />
+                <CalenderView />
             }
         </>
     );

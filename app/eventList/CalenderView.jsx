@@ -5,6 +5,8 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useLazyGetEventQuery } from '@/redux/features/event/eventApi';
 import { useSelector } from 'react-redux';
+import TableLoading from '@/components/TableLoading';
+import { ImSpinner3 } from 'react-icons/im';
 
 function CalenderView() {
 
@@ -12,7 +14,7 @@ function CalenderView() {
 
     const [getEvent, { data: event }] = useLazyGetEventQuery();
 
-    const { currentPage } = useSelector((state) => state.event);
+    const { currentPage, searchLoading } = useSelector((state) => state.event);
 
     const localizer = momentLocalizer(moment);
 
@@ -23,20 +25,20 @@ function CalenderView() {
 
 
     useEffect(() => {
-        getEvent({ search: "", page: currentPage,limit:1000 });
+        getEvent({ search: "", page: currentPage, limit: 1000 });
     }, [currentPage]);
 
-    const myEventsList = event?.events?.map((item)=>{
+    const myEventsList = event?.events?.map((item) => {
         return {
-            title:item?.title,
-            start:item?.date ? new Date(item?.date) : new Date(item?.createdAt),
+            title: item?.title,
+            start: item?.date ? new Date(item?.date) : new Date(item?.createdAt),
             end: item?.date ? new Date(item?.date) : new Date(item?.createdAt),
         }
     })
 
     return (
-        <div>
-            <Calendar
+        <div className=''>
+            {!searchLoading ? <Calendar
                 localizer={localizer}
                 events={myEventsList}
                 startAccessor="start"
@@ -47,6 +49,12 @@ function CalenderView() {
                 onNavigate={handleNavigate} // Update date state on navigation
                 style={{ height: 500 }}
             />
+                :
+                <div className='flex flex-col justify-center items-center w-full h-[40vh]'>
+                    <ImSpinner3 className="w-[150px] h-[150px] animate-spin" />
+                    Loading ........
+                </div>
+            }
         </div>
     )
 }

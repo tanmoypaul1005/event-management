@@ -40,7 +40,6 @@ const AddEventModal = () => {
 
     return (
         <div>
-
             <CommonModal isOpen={showAddEventModal} onClose={handleClose} title="Add Event">
                 <form onSubmit={handleSubmit} className='flex flex-col gap-3 mt-3'>
                     <CommonInput
