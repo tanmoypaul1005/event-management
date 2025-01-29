@@ -48,7 +48,7 @@ const EventList = () => {
     }, [getEvent,currentPage, searchValue]);
 
     const fetchData=async()=>{
-        await getEvent({ search: "", page: currentPage });
+        await getEvent({ search: eventSearch ?? "", page: currentPage });
     }
 
     return (
