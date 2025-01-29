@@ -49,6 +49,8 @@ const EventList = () => {
         await getEvent({ search: eventSearch ?? "", page: currentPage });
     }
 
+    console.log("userInfo?.data?._id",userInfo?.data?._id)
+
     return (
         <>
             <AddEventModal />
@@ -119,7 +121,7 @@ const EventList = () => {
                                                         </td>
                                                         <td className="px-4 py-2 flex items-center">
                                                             {
-                                                                (userInfo?.data?._id == item?.user?._id) && <div className='flex items-center'>
+                                                               (userInfo?.data?._id == item?.user) && <div className='flex items-center'>
                                                                     <button
                                                                         onClick={(e) => {
                                                                             e.stopPropagation();

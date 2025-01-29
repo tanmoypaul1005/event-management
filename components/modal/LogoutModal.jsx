@@ -8,28 +8,17 @@ import CancelButton from '../button/CancelButton';
 const LogoutModal = () => {
 
     const [open, setOpen] = useState(false);
+
     const router = useRouter();
 
     const [logout] = useLogoutMutation();
 
     const handleLogout = async () => {
         const success = await logout().unwrap();
-        
         if (success?.success) {
             router.push("/login")
             setOpen(false);
         }
-        // if (typeof window !== 'undefined') {
-        //     localStorage.clear();
-        // }
-        // setOpen(false);
-        // // Clear cookies
-        // document.cookie.split(";").forEach((cookie) => {
-        //     const eqPos = cookie.indexOf("=");
-        //     const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        //     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-        // });
-        // router.push("/login")
     }
 
     return (
