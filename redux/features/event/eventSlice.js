@@ -22,7 +22,8 @@ const initialState = {
     showAddEventModal:false,
     showEditEventModal:false,
     showEventDetailsModal:false,
-    eventDetails:false
+    eventDetails:false,
+    isTableView:true
 };
 
 const eventSlice = createSlice({
@@ -71,6 +72,11 @@ const eventSlice = createSlice({
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload;
         },
+
+        setTableView: (state, action) => {
+            state.isTableView = action.payload;
+        },
+
     }
 });
 
@@ -85,7 +91,8 @@ export const {
     setShowEventDetailsModal,
     setEventDetails,
     setShowEditEventModal,
-    setCurrentPage
+    setCurrentPage,
+    setTableView
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
