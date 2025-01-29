@@ -92,7 +92,7 @@ export async function GET(request) {
     const url = new URL(request.url);
     const searchQuery = url.searchParams.get('search') || '';
     const page = parseInt(url.searchParams.get('page')) || 1;
-    const limit =10
+    const limit = parseInt(url.searchParams.get('limit')) || 10;
     const skip = (page - 1) * limit;
 
     const totalEvents = await Event.countDocuments({

@@ -23,10 +23,10 @@ function CalenderView() {
 
 
     useEffect(() => {
-        getEvent({ search: "", page: currentPage });
+        getEvent({ search: "", page: currentPage,limit:1000 });
     }, [currentPage]);
 
-    const myEventsList = event?.events?.map((item,index)=>{
+    const myEventsList = event?.events?.map((item)=>{
         return {
             title:item?.title,
             start:item?.date ? new Date(item?.date) : new Date(item?.createdAt),
@@ -35,7 +35,7 @@ function CalenderView() {
     })
 
     return (
-        <div style={{ height: 600, padding: 20 }}>
+        <div>
             <Calendar
                 localizer={localizer}
                 events={myEventsList}

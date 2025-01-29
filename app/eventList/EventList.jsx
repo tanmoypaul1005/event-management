@@ -57,7 +57,10 @@ const EventList = () => {
                     <Search />
                     <div className='flex gap-x-3'>
                         <div
-                            onClick={() => { setTableView(true) }}
+                            onClick={() => { 
+                                setTableView(true);
+                                dispatch(setCurrentPage(1))
+                            }}
                             className={`p-2 rounded cursor-pointer ${isTableView ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
                         >
                             <CiBoxList size={24} />
