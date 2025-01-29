@@ -49,8 +49,6 @@ const EventList = () => {
         await getEvent({ search: eventSearch ?? "", page: currentPage });
     }
 
-    console.log("userInfo?.data?._id",userInfo?.data?._id)
-
     return (
         <>
             <AddEventModal />

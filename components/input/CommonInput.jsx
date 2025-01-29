@@ -28,7 +28,10 @@ function CommonInput({
                     type={type === 'password' ? !showPassword ? 'password' : 'text':type}
                     required={required}
                     placeholder={placeholder}
-                    className="w-full text-sm text-gray-800 border border-gray-300 pl-4 pr-10 py-2 rounded-lg outline-blue-600" />
+                    className={`w-full text-sm text-gray-800 border border-gray-300 pl-4 ${type === 'password' ? "pr-10":"pr-4"} py-2 rounded-lg outline-blue-600`} 
+                    onFocus={type === "date" ? (e) => e.target.showPicker() : undefined}
+
+                    />
                 {type === 'password' && (
                     <button
                         type="button"

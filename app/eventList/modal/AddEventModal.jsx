@@ -73,8 +73,9 @@ const AddEventModal = () => {
                         }}
                         placeholder="Enter start time"
                         label='Start time'
-                    />
+                    />S
                     <div className='my-[66px]'>
+
                         <CommonTimePicker
                             init_time={eventForm?.end_time}
                             onChange={(value) => {

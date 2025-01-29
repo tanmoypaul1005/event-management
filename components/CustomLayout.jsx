@@ -1,5 +1,6 @@
 
 import Header from "@/components/header/Header";
+import Footer from "./footer/Footer";
 
 export default function CustomLayout({ children }) {
 
@@ -7,6 +8,7 @@ export default function CustomLayout({ children }) {
         <div>
             <Header />
             {children}
+            <Footer/>
         </div>
     );
 }
