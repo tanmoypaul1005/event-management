@@ -119,14 +119,14 @@ export async function GET(request) {
       };
     }
 
-    const events = await query ? Event.find(query)
+    const events =  query ? await Event.find(query)
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 })
       .populate({
         path: 'user',
         select: '_id email name',
-      }) : Event.find()
+      }) : await Event.find({})
         .skip(skip)
         .limit(limit)
         .sort({ createdAt: -1 })
