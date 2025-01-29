@@ -6,7 +6,7 @@ const EmptyTable = () => {
     return (
 
         <tr className="container mb-5 w-full">
-            <td colSpan="6">
+            <td colSpan="7">
                 <div className="flex items-center text-center rounded-lg h-96">
                     <div className="flex flex-col justify-center items-center w-full max-w-sm px-4 mx-auto">
                         <div className="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
@@ -15,12 +15,7 @@ const EmptyTable = () => {
                             </svg>
                         </div>
                         <h1 className="mt-3 text-lg text-gray-500">No event found</h1>
-                        <p className="mt-2 text-gray-500 text-center">Your search “Stripe” did not match any vendors. Please try again or create add a new vendor.</p>
-                        {/* <div className="flex items-center mt-4 sm:mx-auto gap-x-3">
-                            <button className="w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
-                                Clear Search
-                            </button>
-                        </div> */}
+                        <p className="mt-2 text-gray-500 text-center">There are no events available. Please add a new event to get started.</p>
                     </div>
                 </div>
             </td>

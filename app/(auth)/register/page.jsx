@@ -25,6 +25,7 @@ const Register = () => {
     const handleRegisterUser = async () => {
         const success = await registerUser(registerForm).unwrap();
         if (success?.success) {
+            Toastr({ message: success?.message, type: "success" });
             router.push('/login');
         } else{
             Toastr({ message: success?.message, type: "error" });
@@ -48,12 +49,6 @@ const Register = () => {
                                 value={registerForm.name}
                                 onChange={(e) => dispatch(handleRegisterFormChange({ field: "name", value: e.target.value }))}
                                 placeholder="Enter user name"
-                            // icon={
-                            //     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                            //         <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                            //         <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
-                            //     </svg>
-                            // }
                             />
                             <CommonInput
                                 name="email"
@@ -101,7 +96,7 @@ const Register = () => {
                                 </button>
                             </div>
 
-                            <p className="text-sm !mt-8 text-center text-gray-500">Don't have an account <Link href="/login" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Login</Link></p>
+                            <p className="text-sm !mt-8 text-center text-gray-500">Already have an account?  <Link href="/login" className="text-blue-600 font-semibold underline ml-1 whitespace-nowrap">Login</Link></p>
                         </form>
                     </div>
                     <div className="max-md:mt-8">
