@@ -44,8 +44,12 @@ const EventList = () => {
     }
 
     useEffect(() => {
-        getEvent({ search: searchValue ?? "", page: currentPage });
-    }, [dispatch, currentPage, searchValue]);
+        fetchData();
+    }, [getEvent,currentPage, searchValue]);
+
+    const fetchData=async()=>{
+            await getEvent({ search: eventSearch ?? "", page: currentPage });
+    }
 
     return (
         <>
