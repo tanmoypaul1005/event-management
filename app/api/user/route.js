@@ -47,7 +47,7 @@ export async function POST(request, response) {
     await user.save();
     return Response.json({
       success: true,
-      message: "User Created Successfully",
+      message: "User registration Successfully",
       status: 201,
       data: user,
     });

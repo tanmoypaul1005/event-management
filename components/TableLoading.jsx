@@ -5,7 +5,7 @@ import { ImSpinner3 } from 'react-icons/im'
 function TableLoading() {
     return (
         <tr className="container w-full h-[50vh]">
-            <td colSpan="6">
+            <td colSpan="8">
                 <div className='flex justify-center items-center'>
                     <ImSpinner3 className=" flex justify-center items-center w-[150px] h-[150px] mt-[2px] animate-spin" />
                 </div>

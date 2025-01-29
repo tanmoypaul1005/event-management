@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AddEventModal from './modal/AddEventModal';
 import { useDeleteEventMutation, useLazyGetEventQuery } from '@/redux/features/event/eventApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,18 +13,15 @@ import EventDetailsModal from './modal/EventDetailsModal';
 import useLogin from '@/helper/hook/useLogin';
 import TableLoading from '@/components/TableLoading';
 import { useRouter } from 'next/navigation';
-import { CiBoxList } from "react-icons/ci";
-import { CiCalendar } from "react-icons/ci";
 import CalenderView from './CalenderView';
 import { formatDate } from '@/util/utilityFunctions';
+import ViewToggle from './ViewToggle';
 
 const EventList = () => {
 
     const dispatch = useDispatch();
 
-    const { eventSearch, searchLoading, currentPage } = useSelector((state) => state.event);
-
-    const [isTableView, setTableView] = useState(true)
+    const { eventSearch, searchLoading, currentPage,isTableView } = useSelector((state) => state.event);
 
     const [searchValue] = useDebounce(eventSearch, 1000);
 
@@ -60,23 +57,7 @@ const EventList = () => {
             <div className='flex w-full justify-between mb-5'>
                 <div className='flex gap-x-3 justify-center items-center'>
                   { isTableView && <Search />}
-                    <div className='flex gap-x-3'>
-                        <div
-                            onClick={() => { 
-                                setTableView(true);
-                                dispatch(setCurrentPage(1))
-                            }}
-                            className={`p-2 rounded cursor-pointer ${isTableView ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-                        >
-                            <CiBoxList size={24} />
-                        </div>
-                        <div
-                            onClick={() => { setTableView(false) }}
-                            className={`p-2 rounded cursor-pointer ${!isTableView ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-                        >
-                            <CiCalendar size={24} />
-                        </div>
-                    </div>
+                  <ViewToggle/>
                 </div>
                 {userInfo?.success && <CommonButton title="Add Event" onClick={() => { dispatch(setShowAddEventModal(true)) }} />}
             </div>
