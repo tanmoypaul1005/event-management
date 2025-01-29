@@ -22,12 +22,13 @@ const Register = () => {
 
     const [registerUser] = useRegisterUserMutation();
 
-    const handleRegisterUser = async () => {
+    const handleRegisterUser = async (e) => {
+        e.preventDefault();
         const success = await registerUser(registerForm).unwrap();
         if (success?.success) {
             Toastr({ message: success?.message, type: "success" });
             router.push('/login');
-        } else{
+        } else {
             Toastr({ message: success?.message, type: "error" });
         }
     }
@@ -37,13 +38,14 @@ const Register = () => {
             <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
                 <div className="grid md:grid-cols-2 items-center gap-6 max-w-6xl w-full">
                     <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
-                        <form className="space-y-4">
+                        <form onSubmit={handleRegisterUser} className="space-y-4">
                             <div className="mb-8">
                                 <h3 className="text-gray-800 text-3xl font-bold">Register</h3>
                                 <p className="text-gray-500 text-sm mt-4 leading-relaxed">Sign in to your account and explore a world of possibilities. Your journey begins here.</p>
                             </div>
 
                             <CommonInput
+                                required
                                 name="name"
                                 label="Name"
                                 value={registerForm.name}
@@ -51,6 +53,7 @@ const Register = () => {
                                 placeholder="Enter user name"
                             />
                             <CommonInput
+                                required
                                 name="email"
                                 type='email'
                                 label="Email"
@@ -60,6 +63,7 @@ const Register = () => {
                             />
 
                             <CommonInput
+                                required
                                 name="password"
                                 type='password'
                                 label="Password"
@@ -75,6 +79,7 @@ const Register = () => {
 
 
                             <CommonInput
+                                required
                                 name="password"
                                 type='password'
                                 label="Confirm Password"
@@ -91,7 +96,9 @@ const Register = () => {
 
 
                             <div className="!mt-8">
-                                <button onClick={handleRegisterUser} type="button" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                <button
+                                    // onClick={handleRegisterUser} 
+                                    type="submit" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                                     Sign in
                                 </button>
                             </div>

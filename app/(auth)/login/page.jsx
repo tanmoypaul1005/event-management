@@ -11,16 +11,16 @@ function Login() {
 
   const { loginForm } = useSelector((state) => state.user);
 
-  const [login,{isLoading}]= useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
-  const router=useRouter();
+  const router = useRouter();
 
   const dispatch = useDispatch();
 
-  const handleLogin=async(e)=>{
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const success= await login(loginForm).unwrap();
-    if(success?.success){
+    const success = await login(loginForm).unwrap();
+    if (success?.success) {
       dispatch(resetLoginForm());
       router.push('/');
     }
@@ -37,6 +37,7 @@ function Login() {
                 <p className="text-gray-500 text-sm mt-4 leading-relaxed">Sign in to your account and explore a world of possibilities. Your journey begins here.</p>
               </div>
               <CommonInput
+                required
                 name="email"
                 type='email'
                 label="Email"
@@ -46,6 +47,7 @@ function Login() {
               />
 
               <CommonInput
+                required
                 name="password"
                 type='password'
                 label="Password"
