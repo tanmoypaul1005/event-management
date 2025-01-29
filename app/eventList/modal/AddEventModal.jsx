@@ -41,7 +41,7 @@ const AddEventModal = () => {
     return (
         <div>
             <CommonModal isOpen={showAddEventModal} onClose={handleClose} title="Add Event">
-                <form onSubmit={handleSubmit} className='flex flex-col gap-3 mt-3'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-2.5 mt-3'>
                     <CommonInput
                         value={eventForm?.title}
                         onChange={handleChange}
@@ -74,7 +74,7 @@ const AddEventModal = () => {
                         placeholder="Enter start time"
                         label='Start time'
                     />
-                    <div className='my-[70px]'>
+                    <div className='my-[68px]'>
                         <CommonTimePicker
                             init_time={eventForm?.end_time}
                             onChange={(value) => {

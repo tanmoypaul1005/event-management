@@ -26,7 +26,7 @@ function CalenderView({ isTableView }) {
 
     useEffect(() => {
         getEvent({ search: "", page: currentPage, limit: 1000 });
-    }, [currentPage, isTableView]);
+    }, [currentPage, isTableView,currentDate]);
 
     const myEventsList = event?.events?.map((item) => {
         return {
