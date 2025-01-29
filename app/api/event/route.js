@@ -123,17 +123,11 @@ export async function GET(request) {
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 })
-      .populate({
-        path: 'user',
-        select: '_id email name',
-      }) : await Event.find({})
+       : await Event.find({})
         .skip(skip)
         .limit(limit)
         .sort({ createdAt: -1 })
-        .populate({
-          path: 'user',
-          select: '_id email name',
-        });
+        
 
     return new Response(JSON.stringify({
       success: true,
