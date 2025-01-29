@@ -5,7 +5,7 @@ import CommonModal from '@/components/modal/CommonModal';
 import CommonTimePicker from '@/components/timePicker/CommonTimePicker';
 import { useEditEventMutation } from '@/redux/features/event/eventApi';
 import { handleEditEventFormFormChange, setShowEditEventModal } from '@/redux/features/event/eventSlice';
-import { validateForm } from '@/util/utilityFunctions';
+import { formatDate, validateForm } from '@/util/utilityFunctions';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -25,8 +25,8 @@ const EventEditModal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { _id, ...itemWithoutId } = eventFormEdit;
-         const valid = await validateForm(itemWithoutId)
-         if (!valid) return;
+        const valid = await validateForm(itemWithoutId)
+        if (!valid) return;
         const success = await editEvent({ id: _id, data: itemWithoutId }).unwrap();
         if (success?.success) {
             handleClose();
@@ -54,6 +54,15 @@ const EventEditModal = () => {
                         name="description"
                         label="Description"
                         placeholder="Enter description"
+                    />
+
+                    <CommonInput
+                       value={formatDate(eventFormEdit?.date)}
+                        onChange={handleChange}
+                        type='date'
+                        name="date"
+                        label="Date"
+                        placeholder="Enter Date"
                     />
 
                     <CommonTimePicker
