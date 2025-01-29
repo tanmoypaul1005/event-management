@@ -47,6 +47,10 @@ const EventList = () => {
         getEvent({ search: searchValue, page: currentPage });
     }, [dispatch, currentPage, searchValue]);
 
+    useEffect(() => {
+        getEvent({ search: searchValue, page: currentPage });
+    }, []);
+
     return (
         <>
             <AddEventModal />
@@ -54,7 +58,7 @@ const EventList = () => {
             <EventEditModal />
             <div className='flex w-full justify-between mb-5'>
                 <div className='flex gap-x-3 justify-center items-center'>
-                    <Search />
+                  { isTableView && <Search />}
                     <div className='flex gap-x-3'>
                         <div
                             onClick={() => { 

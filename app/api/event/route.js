@@ -119,7 +119,7 @@ export async function GET(request) {
       };
     }
 
-    const events = await Event.find(query)
+    const events = query ? await Event.find(query) : await Event.find()
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 })
