@@ -2,6 +2,8 @@ import { setCurrentPage, setEventSearch } from '@/redux/features/event/eventSlic
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ImSpinner2 } from "react-icons/im";
+import { MdOutlineClear } from "react-icons/md";
+
 const Search = () => {
 
     const { eventSearch, searchLoading } = useSelector((state) => state.event);
@@ -18,17 +20,23 @@ const Search = () => {
             </svg>
             <input value={eventSearch}
                 onChange={(e) => {
-                    if(e.target.value === "") {
+                    if (e.target.value === "") {
                         dispatch(setCurrentPage(1));
                     }
                     dispatch(setEventSearch(e.target.value))
                 }}
-                type="text" placeholder="Search title,description,location,time" 
+                type="text" placeholder="Search title,description,location,time"
                 className="w-full outline-none bg-transparent text-gray-600 text-sm"
-             />
+            />
             {searchLoading && (
                 <ImSpinner2 className="absolute right-2 flex justify-center items-center w-[15px] h-[18px] mt-[2px] animate-spin" />
             )}
+
+            {eventSearch && <div onClick={() => {
+                dispatch(setEventSearch(""))
+            }} className='absolute right-2 cursor-pointer flex justify-center items-center h-4 w-4'>
+                <MdOutlineClear />
+            </div>}
         </div>
     );
 };
