@@ -13,10 +13,11 @@ const LogoutModal = () => {
     const [logout] = useLogoutMutation();
 
     const handleLogout = async () => {
-
         const success = await logout().unwrap();
+        
         if (success?.success) {
             router.push("/login")
+            setOpen(false);
         }
         // if (typeof window !== 'undefined') {
         //     localStorage.clear();
@@ -41,11 +42,10 @@ const LogoutModal = () => {
                 onClose={() => { setOpen(false) }}
                 title="Logout Confirmation"
             >
-
                 <div>
                     <p className="text-gray-700 text-lg my-3">Are you sure you want to logout?</p>
                     <div className="flex justify-end space-x-4">
-                        <CancelButton onClick={() => setOpen(false)}/>
+                        <CancelButton onClick={() => setOpen(false)} />
                         <button
                             onClick={() => {
                                 handleLogout()
