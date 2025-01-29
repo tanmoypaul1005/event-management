@@ -189,7 +189,7 @@ const EventList = () => {
                         </div>
                     </div>
                     :
-                <CalenderView />
+                <CalenderView isTableView={isTableView} />
             }
         </>
     );

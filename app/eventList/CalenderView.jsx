@@ -5,10 +5,10 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useLazyGetEventQuery } from '@/redux/features/event/eventApi';
 import { useSelector } from 'react-redux';
-import TableLoading from '@/components/TableLoading';
 import { ImSpinner3 } from 'react-icons/im';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-function CalenderView() {
+function CalenderView({ isTableView }) {
 
     const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -26,7 +26,7 @@ function CalenderView() {
 
     useEffect(() => {
         getEvent({ search: "", page: currentPage, limit: 1000 });
-    }, [currentPage]);
+    }, [currentPage, isTableView]);
 
     const myEventsList = event?.events?.map((item) => {
         return {
@@ -48,6 +48,9 @@ function CalenderView() {
                 date={currentDate} // Ensure navigation works
                 onNavigate={handleNavigate} // Update date state on navigation
                 style={{ height: 500 }}
+                components={{
+                    toolbar: CustomToolbar,
+                }}
             />
                 :
                 <div className='flex flex-col justify-center items-center w-full h-[40vh]'>
@@ -60,3 +63,57 @@ function CalenderView() {
 }
 
 export default CalenderView
+
+
+
+
+const CustomToolbar = (toolbar) => {
+    const goToBack = () => {
+        toolbar.onNavigate('PREV');
+    };
+
+    const goToNext = () => {
+        toolbar.onNavigate('NEXT');
+    };
+
+    const goToToday = () => {
+        toolbar.onNavigate('TODAY');
+    };
+
+    const label = () => {
+        const date = moment(toolbar.date);
+        return (
+            <span className="text-2xl font-bold text-gray-800">
+                {date.format('MMMM YYYY')}
+            </span>
+        );
+    };
+
+    return (
+        <div className="flex gap-x-5 items-center mb-4">
+            <button
+                onClick={goToBack}
+                className="flex items-center text-[14px] px-4 py-1.5 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-300"
+            >
+                <FaChevronLeft className="mr-2" />
+                Previous
+            </button>
+
+            <button
+                onClick={goToToday}
+                className="flex text-[14px] items-center px-4 py-1.5 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 transition duration-300"
+            >
+                Today
+            </button>
+            <button
+                onClick={goToNext}
+                className="flex text-[14px] items-center px-4 py-1.5 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-300"
+            >
+                Next
+                <FaChevronRight className="ml-2" />
+            </button>
+
+            <div>{label()}</div>
+        </div>
+    );
+};
