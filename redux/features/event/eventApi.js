@@ -29,8 +29,8 @@ export const eventApi = apiSlice.injectEndpoints({
     }),
 
     getEvent: builder.query({
-        query: ({search,page}) => ({
-          url: search?`event?search=${search}&page=${page}`: `event?page=${page}`,
+        query: ({search,page,limit}) => ({
+          url: search?`event?search=${search}&page=${page}&limit=${limit}`: `event?page=${page}&limit=${limit}`,
           method: "GET",
         }),
         onQueryStarted: async (arg, { queryFulfilled,dispatch }) => {

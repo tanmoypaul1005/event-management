@@ -5,7 +5,7 @@ import CommonModal from '@/components/modal/CommonModal';
 import CommonTimePicker from '@/components/timePicker/CommonTimePicker';
 import { useAddEventMutation } from '@/redux/features/event/eventApi';
 import { handleEventFormFormChange, resetEventForm, setCurrentPage, setShowAddEventModal } from '@/redux/features/event/eventSlice';
-import { Toastr, validateForm } from '@/util/utilityFunctions';
+import { formatDate, Toastr, validateForm } from '@/util/utilityFunctions';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -57,6 +57,16 @@ const AddEventModal = () => {
                         label="Description"
                         placeholder="Enter description"
                     />
+
+                    <CommonInput
+                        value={formatDate(eventForm?.date)}
+                        onChange={handleChange}
+                        type='date'
+                        name="date"
+                        label="Date"
+                        placeholder="Enter Date"
+                    />
+
                     <CommonTimePicker
                         init_time={eventForm?.start_time}
                         onChange={(value) => {

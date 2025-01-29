@@ -24,6 +24,10 @@ export const validateForm = (eventForm) => {
     Toastr({ message: "Description is required", type: "warning" });
     return false;
   }
+  if (!eventForm?.date) {
+    Toastr({ message: "Date is required", type: "warning" });
+    return false;
+  }
   if (!eventForm?.start_time) {
     Toastr({ message: "Start time is required", type: "warning" });
     return false;
@@ -37,4 +41,13 @@ export const validateForm = (eventForm) => {
     return false;
   }
   return true;
+};
+
+export const formatDate = (date) => {
+  if (!date) return '';
+  const d = new Date(date);
+  const month = `0${d.getMonth() + 1}`.slice(-2);
+  const day = `0${d.getDate()}`.slice(-2);
+  const year = d.getFullYear();
+  return `${year}-${month}-${day}`;
 };

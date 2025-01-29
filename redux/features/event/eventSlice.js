@@ -6,6 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialUserState = {
     title: "",
     description: "",
+    date:"",
     start_time: "",
     end_time: "",
     location:""
