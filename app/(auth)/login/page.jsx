@@ -76,7 +76,7 @@ function Login() {
                 </button>
               </div>
 
-              <p className="text-sm !mt-8 text-center text-gray-500">Don't have an account <Link href="/register" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</Link></p>
+              <p className="text-sm !mt-8 text-center text-gray-500">Don't have an account? <Link href="/register" className="text-blue-600 font-semibold underline ml-1 whitespace-nowrap">Register here</Link></p>
             </form>
           </div>
           <div className="max-md:mt-8">

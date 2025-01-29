@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import { CiBoxList } from "react-icons/ci";
 import { CiCalendar } from "react-icons/ci";
 import CalenderView from './CalenderView';
+import { formatDate } from '@/util/utilityFunctions';
 
 const EventList = () => {
 
@@ -94,6 +95,9 @@ const EventList = () => {
                                             Description
                                         </th>
                                         <th className="p-4 text-left text-xs font-semibold text-gray-800">
+                                            Date
+                                        </th>
+                                        <th className="p-4 text-left text-xs font-semibold text-gray-800">
                                             Start Time
                                         </th>
                                         <th className="p-4 text-left text-xs font-semibold text-gray-800">
@@ -119,6 +123,9 @@ const EventList = () => {
                                                         </td>
                                                         <td className="px-4 py-2 text-[14px] text-gray-800">
                                                             {item?.description}
+                                                        </td>
+                                                        <td className="px-4 py-2 text-[14px] text-gray-800">
+                                                            {item?.date ? formatDate(item?.date):""}
                                                         </td>
                                                         <td className="px-4 py-2 text-[14px] text-gray-800">
                                                             {item?.start_time}
